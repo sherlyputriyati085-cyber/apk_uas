@@ -207,56 +207,6 @@ class HistoryNotifier extends Notifier<List<HistoryEntry>> {
   }
 }
 
-final foodProvider = NotifierProvider<FoodNotifier, List<FoodItem>>(
-  FoodNotifier.new,
-);
-
-class HistoryNotifier extends Notifier<List<HistoryEntry>> {
-  @override
-  List<HistoryEntry> build() {
-    return [
-      HistoryEntry(
-        id: '1',
-        title: 'Menambahkan',
-        foodName: 'Susu UHT',
-        timestamp: DateTime.now().subtract(const Duration(hours: 2)),
-        icon: LucideIcons.plus,
-        color: Colors.green,
-      ),
-      HistoryEntry(
-        id: '2',
-        title: 'Mengedit',
-        foodName: 'Telur',
-        timestamp: DateTime.now().subtract(const Duration(hours: 5)),
-        icon: LucideIcons.edit2,
-        color: Colors.orange,
-      ),
-      HistoryEntry(
-        id: '3',
-        title: 'Menghapus',
-        foodName: 'Daging Sapi',
-        timestamp: DateTime.now().subtract(const Duration(hours: 8)),
-        icon: LucideIcons.trash2,
-        color: Colors.red,
-      ),
-    ];
-  }
-
-  void addEntry(String title, String foodName, IconData icon, Color color) {
-    state = [
-      HistoryEntry(
-        id: DateTime.now().toString(),
-        title: title,
-        foodName: foodName,
-        timestamp: DateTime.now(),
-        icon: icon,
-        color: color,
-      ),
-      ...state,
-    ];
-  }
-}
-
 final historyProvider = NotifierProvider<HistoryNotifier, List<HistoryEntry>>(
   HistoryNotifier.new,
 );
@@ -277,3 +227,34 @@ final filteredFoodProvider = Provider<List<FoodItem>>((ref) {
   if (query.isEmpty) return foods;
   return foods.where((f) => f.name.toLowerCase().contains(query)).toList();
 });
+
+class UserProfile {
+  final String name;
+  final String email;
+  final String? imagePath;
+
+  UserProfile({required this.name, required this.email, this.imagePath});
+
+  UserProfile copyWith({String? name, String? email, String? imagePath}) {
+    return UserProfile(
+      name: name ?? this.name,
+      email: email ?? this.email,
+      imagePath: imagePath ?? this.imagePath,
+    );
+  }
+}
+
+class UserProfileNotifier extends Notifier<UserProfile> {
+  @override
+  UserProfile build() {
+    return UserProfile(name: 'User FreshTrack', email: 'user@freshtrack.com');
+  }
+
+  void updateProfile({String? name, String? email, String? imagePath}) {
+    state = state.copyWith(name: name, email: email, imagePath: imagePath);
+  }
+}
+
+final userProfileProvider = NotifierProvider<UserProfileNotifier, UserProfile>(
+  UserProfileNotifier.new,
+);
