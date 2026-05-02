@@ -282,7 +282,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -298,7 +298,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             // Decorative shapes
             Positioned(
-                            top: -100,
+              top: -100,
               right: -100,
               child: Container(
                 width: 300,
@@ -323,3 +323,48 @@ class _SplashScreenState extends State<SplashScreen> {
                             color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 30,
                             spreadRadius: 5,
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        LucideIcons.leaf,
+                        size: 80,
+                        color: Color(0xFF4CAF50),
+                      ),
+                    )
+                    .animate()
+                    .scale(duration: 800.ms, curve: Curves.easeOutBack)
+                    .fadeIn(),
+                const SizedBox(height: 32),
+                Text(
+                  'FreshTrack',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xFF1B5E20),
+                    letterSpacing: -1,
+                  ),
+                ).animate().fadeIn(delay: 400.ms).moveY(begin: 20, end: 0),
+                Text(
+                  'Food Expiry Tracker',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 18,
+                    color: Colors.grey[700],
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ).animate().fadeIn(delay: 600.ms),
+                const Spacer(),
+                const CircularProgressIndicator(
+                  strokeWidth: 3,
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4CAF50)),
+                ).animate().fadeIn(delay: 1000.ms),
+                const SizedBox(height: 80),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
