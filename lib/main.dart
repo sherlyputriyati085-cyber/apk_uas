@@ -35,3 +35,34 @@ class FreshTrackApp extends StatelessWidget {
     );
   }
 }
+
+// --- MODELS ---
+
+enum FoodStatus { aman, hampir, expired }
+
+class FoodItem {
+  final String id;
+  final String name;
+  final String category;
+  final DateTime expiryDate;
+  final String? notes;
+  final String? imagePath;
+
+  FoodItem({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.expiryDate,
+    this.notes,
+    this.imagePath,
+  });
+
+  FoodStatus get status {
+    final now = DateTime.now();
+    final difference = expiryDate
+        .difference(DateTime(now.year, now.month, now.day))
+        .inDays;
+    if (difference < 0) return FoodStatus.expired;
+    if (difference <= 7) return FoodStatus.hampir;
+    return FoodStatus.aman;
+  }
