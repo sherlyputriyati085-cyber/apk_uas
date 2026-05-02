@@ -256,3 +256,24 @@ class HistoryNotifier extends Notifier<List<HistoryEntry>> {
     ];
   }
 }
+
+final historyProvider = NotifierProvider<HistoryNotifier, List<HistoryEntry>>(
+  HistoryNotifier.new,
+);
+
+class SearchQueryNotifier extends Notifier<String> {
+  @override
+  String build() => '';
+  void set(String query) => state = query;
+}
+
+final searchQueryProvider = NotifierProvider<SearchQueryNotifier, String>(
+  SearchQueryNotifier.new,
+);
+
+final filteredFoodProvider = Provider<List<FoodItem>>((ref) {
+  final foods = ref.watch(foodProvider);
+  final query = ref.watch(searchQueryProvider).toLowerCase();
+  if (query.isEmpty) return foods;
+  return foods.where((f) => f.name.toLowerCase().contains(query)).toList();
+});
