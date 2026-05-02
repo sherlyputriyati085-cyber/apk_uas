@@ -201,3 +201,58 @@ class FoodNotifier extends Notifier<List<FoodItem>> {
         if (food.id == updatedFood.id) updatedFood else food,
     ];
   }
+
+  void deleteFood(String id) {
+    state = state.where((f) => f.id != id).toList();
+  }
+}
+
+final foodProvider = NotifierProvider<FoodNotifier, List<FoodItem>>(
+  FoodNotifier.new,
+);
+
+class HistoryNotifier extends Notifier<List<HistoryEntry>> {
+  @override
+  List<HistoryEntry> build() {
+    return [
+      HistoryEntry(
+        id: '1',
+        title: 'Menambahkan',
+        foodName: 'Susu UHT',
+        timestamp: DateTime.now().subtract(const Duration(hours: 2)),
+        icon: LucideIcons.plus,
+        color: Colors.green,
+      ),
+      HistoryEntry(
+        id: '2',
+        title: 'Mengedit',
+        foodName: 'Telur',
+        timestamp: DateTime.now().subtract(const Duration(hours: 5)),
+        icon: LucideIcons.edit2,
+        color: Colors.orange,
+      ),
+      HistoryEntry(
+        id: '3',
+        title: 'Menghapus',
+        foodName: 'Daging Sapi',
+        timestamp: DateTime.now().subtract(const Duration(hours: 8)),
+        icon: LucideIcons.trash2,
+        color: Colors.red,
+      ),
+    ];
+  }
+
+  void addEntry(String title, String foodName, IconData icon, Color color) {
+    state = [
+      HistoryEntry(
+        id: DateTime.now().toString(),
+        title: title,
+        foodName: foodName,
+        timestamp: DateTime.now(),
+        icon: icon,
+        color: color,
+      ),
+      ...state,
+    ];
+  }
+}
