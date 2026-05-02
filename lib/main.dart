@@ -281,3 +281,21 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
   }
+
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFE8F5E9), Colors.white, Color(0xFFC8E6C9)],
+          ),
+        ),
+        child: Stack(
+          children: [
+            // Decorative shapes
+            Positioned(
+              
