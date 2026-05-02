@@ -298,4 +298,28 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             // Decorative shapes
             Positioned(
-              
+                            top: -100,
+              right: -100,
+              child: Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4CAF50).withValues(alpha: 0.05),
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ).animate().scale(duration: 2.seconds, curve: Curves.easeInOut),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            blurRadius: 30,
+                            spreadRadius: 5,
