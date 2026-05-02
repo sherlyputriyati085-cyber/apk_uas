@@ -368,3 +368,20 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
+class MainNavigation extends StatefulWidget {
+  const MainNavigation({super.key});
+
+  @override
+  State<MainNavigation> createState() => _MainNavigationState();
+}
+
+class _MainNavigationState extends State<MainNavigation> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const CategoriesScreen(),
+    const HistoryScreen(),
+    const AboutScreen(),
+  ];
