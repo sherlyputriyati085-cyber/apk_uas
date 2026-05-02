@@ -155,3 +155,49 @@ class HistoryEntry {
     );
   }
 }
+
+// --- STATE MANAGEMENT ---
+
+class FoodNotifier extends Notifier<List<FoodItem>> {
+  @override
+  List<FoodItem> build() {
+    return [
+      FoodItem(
+        id: '1',
+        name: 'Susu UHT',
+        category: 'Minuman',
+        expiryDate: DateTime.now().add(const Duration(days: 27)),
+        notes: 'Simpan di kulkas setelah dibuka',
+      ),
+      FoodItem(
+        id: '2',
+        name: 'Roti Tawar',
+        category: 'Makanan Instan',
+        expiryDate: DateTime.now().add(const Duration(days: 4)),
+        notes: 'Habiskan segera',
+      ),
+      FoodItem(
+        id: '3',
+        name: 'Telur',
+        category: 'Daging',
+        expiryDate: DateTime.now().add(const Duration(days: 10)),
+      ),
+      FoodItem(
+        id: '4',
+        name: 'Daging Ayam',
+        category: 'Daging',
+        expiryDate: DateTime.now().subtract(const Duration(days: 2)),
+      ),
+    ];
+  }
+
+  void addFood(FoodItem food) {
+    state = [...state, food];
+  }
+
+  void updateFood(FoodItem updatedFood) {
+    state = [
+      for (final food in state)
+        if (food.id == updatedFood.id) updatedFood else food,
+    ];
+  }
