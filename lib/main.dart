@@ -427,3 +427,31 @@ class _MainNavigationState extends State<MainNavigation> {
     );
   }
 }
+
+// --- HOME SCREEN ---
+
+class HomeScreen extends ConsumerWidget {
+  const HomeScreen({super.key});
+
+  @override
+
+  Widget build(BuildContext context, WidgetRef ref) {
+    final foods = ref.watch(filteredFoodProvider);
+    final allFoods = ref.watch(foodProvider);
+    final query = ref.watch(searchQueryProvider);
+
+    final amanCount = allFoods.where((f) => f.status == FoodStatus.aman).length;
+    final hampirCount = allFoods
+        .where((f) => f.status == FoodStatus.hampir)
+        .length;
+    final expiredCount = allFoods
+        .where((f) => f.status == FoodStatus.expired)
+        .length;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'FreshTrack',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ), //text
+        
