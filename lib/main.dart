@@ -709,3 +709,33 @@ Widget _buildSummaryCard(
                 color: textColor,
               ),
             ), // text 
+            Text(
+              label,
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 12,
+                color: textColor.withValues(alpha: 0.8),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFoodItemTile(BuildContext context, FoodItem food) {
+    Color statusColor;
+    String statusLabel;
+    switch (food.status) {
+      case FoodStatus.aman:
+        statusColor = const Color(0xFF4CAF50);
+        statusLabel = 'Aman';
+        break;
+      case FoodStatus.hampir:
+        statusColor = const Color(0xFFFF9800);
+        statusLabel = 'Hampir';
+        break;
+      case FoodStatus.expired:
+        statusColor = const Color(0xFFF44336);
+        statusLabel = 'Expired';
+        break;
+    }
