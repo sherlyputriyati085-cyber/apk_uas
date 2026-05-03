@@ -685,4 +685,27 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-
+Widget _buildSummaryCard(
+    String label,
+    int count,
+    Color bgColor,
+    Color textColor,
+  ) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: textColor.withValues(alpha: 0.2)),
+        ),
+        child: Column(
+          children: [
+            Text(
+              count.toString(),
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
+            ), // text 
