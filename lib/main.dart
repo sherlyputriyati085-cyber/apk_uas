@@ -1085,3 +1085,34 @@ Future<void> _pickImage(ImageSource source) async {
                     ),
                   ),
                 ),
+                 const SizedBox(height: 32),
+                _buildLabel('Nama Makanan'),
+                TextField(
+                  controller: _nameController,
+                  decoration: _buildInputDecoration('Contoh: Susu UHT'),
+                ),
+                const SizedBox(height: 20),
+                _buildLabel('Kategori'),
+                DropdownButtonFormField<String>(
+                  initialValue: _selectedCategory,
+                  decoration: _buildInputDecoration('Pilih kategori'),
+                  items:
+                      ['Minuman', 'Makanan Instan', 'Buah', 'Sayuran', 'Daging']
+                          .map(
+                            (e) => DropdownMenuItem(value: e, child: Text(e)),
+                          )
+                          .toList(),
+                           onChanged: (val) => setState(() => _selectedCategory = val!),
+                ),
+                const SizedBox(height: 20),
+                _buildLabel('Tanggal Kadaluarsa'),
+                InkWell(
+                  onTap: () async {
+                    final date = await showDatePicker(
+                      context: context,
+                      initialDate: _selectedDate,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                    );
+                    if (date != null) setState(() => _selectedDate = date);
+                  },
