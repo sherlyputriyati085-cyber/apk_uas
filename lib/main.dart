@@ -861,3 +861,21 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
         DateTime.now().add(const Duration(days: 7));
     _imagePath = widget.foodToEdit?.imagePath;
   }
+
+Future<void> _pickImage(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: source,
+        maxWidth: 1000,
+        maxHeight: 1000,
+        imageQuality: 85,
+      );
+      if (pickedFile != null) {
+        setState(() {
+          _imagePath = pickedFile.path;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error picking image: $e');
+    }
+  }
