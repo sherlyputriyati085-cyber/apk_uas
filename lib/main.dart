@@ -453,7 +453,7 @@ class HomeScreen extends ConsumerWidget {
           'FreshTrack',
           style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
         ), //text
-         actions: [
+        actions: [
           Stack(
             children: [
               IconButton(
@@ -491,8 +491,8 @@ class HomeScreen extends ConsumerWidget {
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,
-      ),// app bar
-       body: Stack(
+      ), // app bar
+      body: Stack(
         children: [
           // Background Decorations
           Positioned(
@@ -560,7 +560,7 @@ class HomeScreen extends ConsumerWidget {
                           LucideIcons.search,
                           size: 20,
                           color: Colors.grey,
-                        ),// icon
+                        ), // icon
                         suffixIcon: ref.watch(searchQueryProvider).isNotEmpty
                             ? IconButton(
                                 icon: const Icon(LucideIcons.x, size: 16),
@@ -618,7 +618,7 @@ class HomeScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ), // text
-                       TextButton(
+                      TextButton(
                         onPressed: () {},
                         child: const Text('Lihat Semua'),
                       ),
@@ -665,7 +665,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     )
                   else
-                   ListView.separated(
+                    ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: foods.length,
@@ -685,7 +685,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-Widget _buildSummaryCard(
+  Widget _buildSummaryCard(
     String label,
     int count,
     Color bgColor,
@@ -708,7 +708,7 @@ Widget _buildSummaryCard(
                 fontWeight: FontWeight.bold,
                 color: textColor,
               ),
-            ), // text 
+            ), // text
             Text(
               label,
               style: GoogleFonts.plusJakartaSans(
@@ -809,3 +809,20 @@ Widget _buildSummaryCard(
     );
   }
 
+  IconData _getCategoryIcon(String category) {
+    switch (category) {
+      case 'Minuman':
+        return LucideIcons.cupSoda;
+      case 'Makanan Instan':
+        return LucideIcons.box;
+      case 'Buah':
+        return LucideIcons.apple;
+      case 'Sayuran':
+        return LucideIcons.carrot;
+      case 'Daging':
+        return LucideIcons.drumstick;
+      default:
+        return LucideIcons.utensils;
+    }
+  }
+}
