@@ -665,5 +665,24 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     )
                   else
-                  
+                   ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: foods.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
+                      itemBuilder: (context, index) {
+                        final food = foods[index];
+                        return _buildFoodItemTile(context, food);
+                      },
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
