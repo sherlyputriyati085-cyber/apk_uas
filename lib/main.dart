@@ -826,3 +826,38 @@ class HomeScreen extends ConsumerWidget {
     }
   }
 }
+
+// --- ADD/EDIT FOOD SCREEN ---
+
+class AddFoodScreen extends ConsumerStatefulWidget {
+  final FoodItem? foodToEdit;
+  const AddFoodScreen({super.key, this.foodToEdit});
+
+  @override
+  ConsumerState<AddFoodScreen> createState() => _AddFoodScreenState();
+}
+
+class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
+  late TextEditingController _nameController;
+  late TextEditingController _notesController;
+  late String _selectedCategory;
+  late DateTime _selectedDate;
+  String? _imagePath;
+
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(
+      text: widget.foodToEdit?.name ?? '',
+    );
+    _notesController = TextEditingController(
+      text: widget.foodToEdit?.notes ?? '',
+    );
+    _selectedCategory = widget.foodToEdit?.category ?? 'Minuman';
+    _selectedDate =
+        widget.foodToEdit?.expiryDate ??
+        DateTime.now().add(const Duration(days: 7));
+    _imagePath = widget.foodToEdit?.imagePath;
+  }
