@@ -434,7 +434,6 @@ class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-
   Widget build(BuildContext context, WidgetRef ref) {
     final foods = ref.watch(filteredFoodProvider);
     final allFoods = ref.watch(foodProvider);
@@ -492,4 +491,5 @@ class HomeScreen extends ConsumerWidget {
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,
-      ),
+      ),// app bar
+
