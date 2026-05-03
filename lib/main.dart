@@ -1116,3 +1116,31 @@ Future<void> _pickImage(ImageSource source) async {
                     );
                     if (date != null) setState(() => _selectedDate = date);
                   },
+                   child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey[300]!),
+                      borderRadius: BorderRadius.circular(12),
+                    ), //box decoration
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          DateFormat(
+                            'd MMMM yyyy',
+                            'id_ID',
+                          ).format(_selectedDate), //date format
+                        ), // text
+                        const Icon(
+                          LucideIcons.calendar,
+                          size: 20,
+                          color: Colors.grey,
+                        ), // icon
+                      ],
+                    ), // row
+                  ), // container
+                ), //inkwell
+                
