@@ -618,5 +618,52 @@ class HomeScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ), // text
-                      
+                       TextButton(
+                        onPressed: () {},
+                        child: const Text('Lihat Semua'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  if (foods.isEmpty && query.isNotEmpty)
+                    Center(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 40),
+                          Icon(
+                            LucideIcons.searchX,
+                            size: 64,
+                            color: Colors.grey[300],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Makanan tidak tersedia',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'Coba cari dengan kata kunci lain',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 14,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  else if (foods.isEmpty)
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: Text(
+                          'Belum ada makanan',
+                          style: TextStyle(color: Colors.grey[400]),
+                        ),
+                      ),
+                    )
+                  else
+                  
 
