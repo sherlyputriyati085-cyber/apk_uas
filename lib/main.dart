@@ -986,6 +986,36 @@ Future<void> _pickImage(ImageSource source) async {
               decoration: BoxDecoration(
                 color: const Color(0xFF4CAF50).withValues(alpha: 0.03),
                 shape: BoxShape.circle,
-              ),
-            ),
-          ),
+              ), // box decoration
+            ), // container
+          ), // positioned
+           Positioned(
+            bottom: -50,
+            right: -50,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                color: const Color(0xFF8BC34A).withValues(alpha: 0.03),
+                shape: BoxShape.circle,
+              ), // box decoration
+            ), // container
+          ), // position
+           SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(24, 120, 24, 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Photo Placeholder
+                Center(
+                  child: GestureDetector(
+                    onTap: () => _showImageSourceActionSheet(context),
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 140,
+                          height: 140,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(24),
+                            boxShadow: [
