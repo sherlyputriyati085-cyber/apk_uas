@@ -492,4 +492,73 @@ class HomeScreen extends ConsumerWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),// app bar
+       body: Stack(
+        children: [
+          // Background Decorations
+          Positioned(
+            top: -50,
+            right: -50,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                color: const Color(0xFF4CAF50).withValues(alpha: 0.05),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 100,
+            left: -30,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                color: const Color(0xFF8BC34A).withValues(alpha: 0.05),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  const Color(0xFFF8FAF8),
+                  const Color(0xFFE8F5E9).withValues(alpha: 0.1),
+                  const Color(0xFFF8FAF8),
+                ],
+              ),
+            ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Search Bar
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      onChanged: (val) =>
+                          ref.read(searchQueryProvider.notifier).set(val),
+                      decoration: InputDecoration(
+                        hintText: 'Cari makanan...',
+                        border: InputBorder.none,
+                        icon: const Icon(
+                          LucideIcons.search,
+                          size: 20,
+                          color: Colors.grey,
+                        ),// icon
 
