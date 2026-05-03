@@ -561,4 +561,62 @@ class HomeScreen extends ConsumerWidget {
                           size: 20,
                           color: Colors.grey,
                         ),// icon
+                        suffixIcon: ref.watch(searchQueryProvider).isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(LucideIcons.x, size: 16),
+                                onPressed: () {
+                                  ref
+                                      .read(searchQueryProvider.notifier)
+                                      .set('');
+                                },
+                              )
+                            : null,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Ringkasan',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      _buildSummaryCard(
+                        'Aman',
+                        amanCount,
+                        const Color(0xFFE8F5E9),
+                        const Color(0xFF2E7D32),
+                      ),
+                      const SizedBox(width: 12),
+                      _buildSummaryCard(
+                        'Hampir',
+                        hampirCount,
+                        const Color(0xFFFFF3E0),
+                        const Color(0xFFEF6C00),
+                      ),
+                      const SizedBox(width: 12),
+                      _buildSummaryCard(
+                        'Expired',
+                        expiredCount,
+                        const Color(0xFFFFEBEE),
+                        const Color(0xFFC62828),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Daftar Makanan',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ), // text
+                      
 
