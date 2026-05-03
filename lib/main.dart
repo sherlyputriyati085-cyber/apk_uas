@@ -954,3 +954,38 @@ Future<void> _pickImage(ImageSource source) async {
       ),
     );
   }
+
+    @override
+  void dispose() {
+    _nameController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
+
+   @override
+  Widget build(BuildContext context) {
+    final isEdit = widget.foodToEdit != null;
+
+     return Scaffold(
+      appBar: AppBar(
+        title: Text(isEdit ? 'Edit Makanan' : 'Tambah Makanan'),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          // Background Decorations
+          Positioned(
+            top: -100,
+            left: -100,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                color: const Color(0xFF4CAF50).withValues(alpha: 0.03),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
