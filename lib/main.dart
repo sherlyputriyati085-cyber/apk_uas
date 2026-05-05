@@ -1176,3 +1176,21 @@ Future<void> _pickImage(ImageSource source) async {
                               Colors.orange,
                             );
                       } else {
+                         final newItem = FoodItem(
+                          id: DateTime.now().toString(),
+                          name: _nameController.text,
+                          category: _selectedCategory,
+                          expiryDate: _selectedDate,
+                          notes: _notesController.text,
+                          imagePath: _imagePath,
+                        ); // food item
+                        ref.read(foodProvider.notifier).addFood(newItem);
+                        ref
+                            .read(historyProvider.notifier)
+                            .addEntry(
+                              'Menambahkan',
+                              newItem.name,
+                              LucideIcons.plus,
+                              Colors.green,
+                            );
+                      }
