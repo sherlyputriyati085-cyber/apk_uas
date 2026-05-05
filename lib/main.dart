@@ -1261,3 +1261,57 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
     );
   }
 }
+
+// --- DETAIL SCREEN ---
+
+class FoodDetailScreen extends ConsumerWidget {
+  final FoodItem food;
+  const FoodDetailScreen({super.key, required this.food});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color statusColor;
+    String statusLabel;
+    switch (food.status) {
+      case FoodStatus.aman:
+        statusColor = const Color(0xFF4CAF50);
+        statusLabel = 'Aman';
+        break;
+         case FoodStatus.hampir:
+        statusColor = const Color(0xFFFF9800);
+        statusLabel = 'Hampir';
+        break;
+      case FoodStatus.expired:
+        statusColor = const Color(0xFFF44336);
+        statusLabel = 'Expired';
+        break;
+    }
+
+     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail Makanan'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(LucideIcons.trash2, color: Colors.red),
+            onPressed: () => _confirmDelete(context, ref),
+          ),
+        ],
+      ),
+       extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          // Background Decorations
+          Positioned(
+            top: -50,
+            right: -50,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                color: statusColor.withValues(alpha: 0.05),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
