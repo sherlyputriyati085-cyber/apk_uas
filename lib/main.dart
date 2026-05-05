@@ -1355,4 +1355,49 @@ class FoodDetailScreen extends ConsumerWidget {
                               fontWeight: FontWeight.bold,
                             ), //text style
                           ), //text
-                          
+                           Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: statusColor.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              statusLabel,
+                              style: TextStyle(
+                                color: statusColor,
+                                fontWeight: FontWeight.bold,
+                              ), //text style
+                            ), //text
+                          ), // container
+                        ],
+                      ), // row
+                      const SizedBox(height: 32),
+                      _buildDetailRow(
+                        LucideIcons.tag,
+                        'Kategori',
+                        food.category,
+                      ),
+                       _buildDetailRow(
+                        LucideIcons.calendar,
+                        'Tanggal Kadaluarsa',
+                        DateFormat(
+                          'd MMMM yyyy',
+                          'id_ID',
+                        ).format(food.expiryDate),
+                      ),
+                       _buildDetailRow(
+                        LucideIcons.clock,
+                        'Sisa Waktu',
+                        '${food.daysLeft} hari lagi',
+                      ),
+                      _buildDetailRow(
+                        LucideIcons.fileText,
+                        'Catatan',
+                        food.notes != null && food.notes!.isNotEmpty
+                            ? food.notes!
+                            : '-',
+                      ),
+
