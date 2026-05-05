@@ -1143,4 +1143,36 @@ Future<void> _pickImage(ImageSource source) async {
                     ), // row
                   ), // container
                 ), //inkwell
-                
+                const SizedBox(height: 20),
+                _buildLabel('Catatan (opsional)'),
+                TextField(
+                  controller: _notesController,
+                  maxLines: 3,
+                  decoration: _buildInputDecoration('Tambahkan catatan...'),
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_nameController.text.isEmpty) return;
+
+                      if (isEdit) {
+                        final updated = widget.foodToEdit!.copyWith(
+                          name: _nameController.text,
+                          category: _selectedCategory,
+                          expiryDate: _selectedDate,
+                          notes: _notesController.text,
+                          imagePath: _imagePath,
+                        );
+                        ref.read(foodProvider.notifier).updateFood(updated);
+                        ref
+                           .read(historyProvider.notifier)
+                           .addEntry(
+                              'Mengedit',
+                              updated.name,
+                              LucideIcons.edit2,
+                              Colors.orange,
+                            );
+                      } else {
