@@ -862,7 +862,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
     _imagePath = widget.foodToEdit?.imagePath;
   }
 
-Future<void> _pickImage(ImageSource source) async {
+  Future<void> _pickImage(ImageSource source) async {
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: source,
@@ -880,7 +880,7 @@ Future<void> _pickImage(ImageSource source) async {
     }
   }
 
-   void _showImageSourceActionSheet(BuildContext context) {
+  void _showImageSourceActionSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -928,7 +928,7 @@ Future<void> _pickImage(ImageSource source) async {
     );
   }
 
-   Widget _buildSourceOption({
+  Widget _buildSourceOption({
     required IconData icon,
     required String label,
     required VoidCallback onTap,
@@ -955,18 +955,18 @@ Future<void> _pickImage(ImageSource source) async {
     );
   }
 
-    @override
+  @override
   void dispose() {
     _nameController.dispose();
     _notesController.dispose();
     super.dispose();
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     final isEdit = widget.foodToEdit != null;
 
-     return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(isEdit ? 'Edit Makanan' : 'Tambah Makanan'),
         centerTitle: true,
@@ -989,7 +989,7 @@ Future<void> _pickImage(ImageSource source) async {
               ), // box decoration
             ), // container
           ), // positioned
-           Positioned(
+          Positioned(
             bottom: -50,
             right: -50,
             child: Container(
@@ -1001,7 +1001,7 @@ Future<void> _pickImage(ImageSource source) async {
               ), // box decoration
             ), // container
           ), // position
-           SingleChildScrollView(
+          SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(24, 120, 24, 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1019,7 +1019,7 @@ Future<void> _pickImage(ImageSource source) async {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
-                               BoxShadow(
+                              BoxShadow(
                                 color: Colors.black.withValues(alpha: 0.05),
                                 blurRadius: 20,
                               ),
@@ -1085,7 +1085,7 @@ Future<void> _pickImage(ImageSource source) async {
                     ),
                   ),
                 ),
-                 const SizedBox(height: 32),
+                const SizedBox(height: 32),
                 _buildLabel('Nama Makanan'),
                 TextField(
                   controller: _nameController,
@@ -1102,7 +1102,7 @@ Future<void> _pickImage(ImageSource source) async {
                             (e) => DropdownMenuItem(value: e, child: Text(e)),
                           )
                           .toList(),
-                           onChanged: (val) => setState(() => _selectedCategory = val!),
+                  onChanged: (val) => setState(() => _selectedCategory = val!),
                 ),
                 const SizedBox(height: 20),
                 _buildLabel('Tanggal Kadaluarsa'),
@@ -1116,7 +1116,7 @@ Future<void> _pickImage(ImageSource source) async {
                     );
                     if (date != null) setState(() => _selectedDate = date);
                   },
-                   child: Container(
+                  child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 12,
@@ -1168,15 +1168,15 @@ Future<void> _pickImage(ImageSource source) async {
                         );
                         ref.read(foodProvider.notifier).updateFood(updated);
                         ref
-                           .read(historyProvider.notifier)
-                           .addEntry(
+                            .read(historyProvider.notifier)
+                            .addEntry(
                               'Mengedit',
                               updated.name,
                               LucideIcons.edit2,
                               Colors.orange,
                             );
                       } else {
-                         final newItem = FoodItem(
+                        final newItem = FoodItem(
                           id: DateTime.now().toString(),
                           name: _nameController.text,
                           category: _selectedCategory,
@@ -1210,7 +1210,7 @@ Future<void> _pickImage(ImageSource source) async {
                       );
                       Navigator.pop(context);
                     },
-                     style: ElevatedButton.styleFrom(
+                    style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4CAF50),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -1233,4 +1233,31 @@ Future<void> _pickImage(ImageSource source) async {
       ),
     );
   }
-  
+
+  Widget _buildLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(
+        text,
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      ),
+    );
+  }
+
+  InputDecoration _buildInputDecoration(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      filled: true,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey[300]!),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey[300]!),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    );
+  }
+}
