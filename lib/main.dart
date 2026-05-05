@@ -1312,6 +1312,47 @@ class FoodDetailScreen extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: statusColor.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
-              ),
-            ),
-          ),
+              ), // box decoration
+            ), //container
+          ), // positioned
+           SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 300,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    image: food.imagePath != null
+                        ? DecorationImage(
+                            image: FileImage(File(food.imagePath!)),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
+                  ), //boxdecoration
+                   child: food.imagePath == null
+                      ? Center(
+                          child: Icon(
+                            LucideIcons.image,
+                            size: 80,
+                            color: Colors.grey[300],
+                          ),
+                        )
+                      : null,
+                ), //container
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            food.name,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ), //text style
+                          ), //text
+                          
