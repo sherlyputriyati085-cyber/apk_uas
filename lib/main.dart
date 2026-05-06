@@ -1510,3 +1510,28 @@ class FoodDetailScreen extends ConsumerWidget {
     );
   }
 }
+
+// --- CATEGORIES SCREEN ---
+
+class CategoriesScreen extends ConsumerWidget {
+  const CategoriesScreen({super.key});
+
+  @override
+ Widget build(BuildContext context, WidgetRef ref) {
+    final foods = ref.watch(foodProvider);
+    final categories = [
+      {'name': 'Semua', 'icon': LucideIcons.layoutGrid, 'color': Colors.blue},
+      {'name': 'Minuman', 'icon': LucideIcons.cupSoda, 'color': Colors.cyan},
+      {
+        'name': 'Makanan Instan',
+        'icon': LucideIcons.box,
+        'color': Colors.orange,
+      },
+      {'name': 'Buah', 'icon': LucideIcons.apple, 'color': Colors.red},
+      {'name': 'Sayuran', 'icon': LucideIcons.carrot, 'color': Colors.green},
+      {
+        'name': 'Daging',
+        'icon': LucideIcons.drumstick,
+        'color': Colors.redAccent,
+      },
+    ];
