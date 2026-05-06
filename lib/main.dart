@@ -1603,3 +1603,38 @@ class CategoriesScreen extends ConsumerWidget {
                       ), //BoxShadow
                     ],
                   ), //BoxDecoration
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: (cat['color'] as Color).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          cat['icon'] as IconData,
+                          color: cat['color'] as Color,
+                        ), //Icon
+                      ), //Container
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ), //TextStyle
+                            ), //Text
+                            Text(
+                              '$count makanan',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 12,
+                              ), //TextStyle
+                            ), //Text
+                          ],
+                        ), //Column
+                      ), //Expanded
