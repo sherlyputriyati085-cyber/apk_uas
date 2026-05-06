@@ -1565,3 +1565,41 @@ class CategoriesScreen extends ConsumerWidget {
             ), //Container
           ), //positioned
           ListView.separated(
+            padding: const EdgeInsets.all(20),
+            itemCount: categories.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 12),
+            itemBuilder: (context, index) {
+              final cat = categories[index];
+              final name = cat['name'] as String;
+              final count = name == 'Semua'
+                  ? foods.length
+                  : foods.where((f) => f.category == name).length;
+
+                  return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FilteredFoodScreen(
+                        categoryName: name,
+                        foods: name == 'Semua'
+                            ? foods
+                            : foods.where((f) => f.category == name).toList(),
+                      ),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.02),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ), //BoxShadow
+                    ],
+                  ), //BoxDecoration
