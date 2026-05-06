@@ -1400,4 +1400,42 @@ class FoodDetailScreen extends ConsumerWidget {
                             ? food.notes!
                             : '-',
                       ),
+                      const SizedBox(height: 48),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddFoodScreen(foodToEdit: food),
+                                ),
+                              ),
+                               icon: const Icon(LucideIcons.edit2, size: 18),
+                              label: const Text('Edit'),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.green,
+                                side: const BorderSide(color: Colors.green),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ), // edgeInsets.Symetric
+                              ),
+                            ), //outlinedbutton.icon
+                          ), //expanded
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () => _confirmDelete(context, ref),
+                              icon: const Icon(LucideIcons.trash2, size: 18),
+                              label: const Text('Hapus'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red.withValues(
+                                  alpha: 0.05,
+                                ),
+                                
+
 
