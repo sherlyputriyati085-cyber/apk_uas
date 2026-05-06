@@ -1775,3 +1775,46 @@ class FilteredFoodScreen extends StatelessWidget {
     );
   }
 }
+
+class _FoodItemTile extends StatelessWidget {
+  final FoodItem food;
+  const _FoodItemTile({required this.food});
+
+  @override
+  Widget build(BuildContext context) {
+    Color statusColor;
+    String statusLabel;
+    switch (food.status) {
+      case FoodStatus.aman:
+        statusColor = const Color(0xFF4CAF50);
+        statusLabel = 'Aman';
+        break;
+      case FoodStatus.hampir:
+        statusColor = const Color(0xFFFF9800);
+        statusLabel = 'Hampir';
+        break;
+      case FoodStatus.expired:
+        statusColor = const Color(0xFFF44336);
+        statusLabel = 'Expired';
+        break;
+    }
+
+ return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FoodDetailScreen(food: food)),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ), //BoxShadow
+          ],
+        ), //BoxDecoration
+        
