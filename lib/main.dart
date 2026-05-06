@@ -1799,7 +1799,7 @@ class _FoodItemTile extends StatelessWidget {
         break;
     }
 
- return GestureDetector(
+    return GestureDetector(
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => FoodDetailScreen(food: food)),
@@ -1867,3 +1867,21 @@ class _FoodItemTile extends StatelessWidget {
       ),
     );
   }
+
+  IconData _getCategoryIcon(String category) {
+    switch (category) {
+      case 'Minuman':
+        return LucideIcons.cupSoda;
+      case 'Makanan Instan':
+        return LucideIcons.box;
+      case 'Buah':
+        return LucideIcons.apple;
+      case 'Sayuran':
+        return LucideIcons.carrot;
+      case 'Daging':
+        return LucideIcons.drumstick;
+      default:
+        return LucideIcons.utensils;
+    }
+  }
+}
