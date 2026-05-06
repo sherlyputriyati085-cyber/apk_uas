@@ -1535,3 +1535,33 @@ class CategoriesScreen extends ConsumerWidget {
         'color': Colors.redAccent,
       },
     ];
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Kategori'), centerTitle: true),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 20,
+            left: -30,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                color: Colors.blue.withValues(alpha: 0.03),
+                shape: BoxShape.circle,
+              ), //BoxDecoration
+            ), //Container
+          ), //Positioned
+           Positioned(
+            bottom: 50,
+            right: -20,
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                color: Colors.green.withValues(alpha: 0.03),
+                shape: BoxShape.circle,
+              ), //BoxDecoration
+            ), //Container
+          ), //positioned
+          ListView.separated(
