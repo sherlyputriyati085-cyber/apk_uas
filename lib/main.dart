@@ -1746,3 +1746,32 @@ class NotificationScreen extends ConsumerWidget {
     );
   }
 }
+
+class FilteredFoodScreen extends StatelessWidget {
+  final String categoryName;
+  final List<FoodItem> foods;
+
+  const FilteredFoodScreen({
+    super.key,
+    required this.categoryName,
+    required this.foods,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(categoryName), centerTitle: true),
+      body: foods.isEmpty
+          ? const Center(child: Text('Tidak ada makanan di kategori ini'))
+          : ListView.separated(
+              padding: const EdgeInsets.all(20),
+              itemCount: foods.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                final food = foods[index];
+                return _FoodItemTile(food: food);
+              },
+            ),
+    );
+  }
+}
