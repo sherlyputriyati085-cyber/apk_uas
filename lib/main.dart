@@ -1517,7 +1517,7 @@ class CategoriesScreen extends ConsumerWidget {
   const CategoriesScreen({super.key});
 
   @override
- Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final foods = ref.watch(foodProvider);
     final categories = [
       {'name': 'Semua', 'icon': LucideIcons.layoutGrid, 'color': Colors.blue},
@@ -1552,7 +1552,7 @@ class CategoriesScreen extends ConsumerWidget {
               ), //BoxDecoration
             ), //Container
           ), //Positioned
-           Positioned(
+          Positioned(
             bottom: 50,
             right: -20,
             child: Container(
@@ -1575,7 +1575,7 @@ class CategoriesScreen extends ConsumerWidget {
                   ? foods.length
                   : foods.where((f) => f.category == name).length;
 
-                  return InkWell(
+              return InkWell(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -1638,3 +1638,27 @@ class CategoriesScreen extends ConsumerWidget {
                           ],
                         ), //Column
                       ), //Expanded
+                      Text(
+                        count.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Icon(
+                        LucideIcons.chevronRight,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
