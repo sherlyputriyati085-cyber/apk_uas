@@ -1817,4 +1817,53 @@ class _FoodItemTile extends StatelessWidget {
             ), //BoxShadow
           ],
         ), //BoxDecoration
-        
+        child: Row(
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: statusColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(_getCategoryIcon(food.category), color: statusColor),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    food.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ), //TextStyle
+                  ), //Text
+                  Text(
+                    'Kadaluarsa: ${DateFormat('d MMM yyyy', 'id_ID').format(food.expiryDate)}',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                  ), //Text
+                ],
+              ), //Column
+            ), //Expanded
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                color: statusColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                statusLabel,
+                style: TextStyle(
+                  color: statusColor,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
