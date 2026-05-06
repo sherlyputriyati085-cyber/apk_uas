@@ -1277,7 +1277,7 @@ class FoodDetailScreen extends ConsumerWidget {
         statusColor = const Color(0xFF4CAF50);
         statusLabel = 'Aman';
         break;
-         case FoodStatus.hampir:
+      case FoodStatus.hampir:
         statusColor = const Color(0xFFFF9800);
         statusLabel = 'Hampir';
         break;
@@ -1287,7 +1287,7 @@ class FoodDetailScreen extends ConsumerWidget {
         break;
     }
 
-     return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Makanan'),
         backgroundColor: Colors.transparent,
@@ -1299,7 +1299,7 @@ class FoodDetailScreen extends ConsumerWidget {
           ),
         ],
       ),
-       extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           // Background Decorations
@@ -1315,7 +1315,7 @@ class FoodDetailScreen extends ConsumerWidget {
               ), // box decoration
             ), //container
           ), // positioned
-           SingleChildScrollView(
+          SingleChildScrollView(
             child: Column(
               children: [
                 Container(
@@ -1330,7 +1330,7 @@ class FoodDetailScreen extends ConsumerWidget {
                           )
                         : null,
                   ), //boxdecoration
-                   child: food.imagePath == null
+                  child: food.imagePath == null
                       ? Center(
                           child: Icon(
                             LucideIcons.image,
@@ -1355,7 +1355,7 @@ class FoodDetailScreen extends ConsumerWidget {
                               fontWeight: FontWeight.bold,
                             ), //text style
                           ), //text
-                           Container(
+                          Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 12,
                               vertical: 4,
@@ -1380,7 +1380,7 @@ class FoodDetailScreen extends ConsumerWidget {
                         'Kategori',
                         food.category,
                       ),
-                       _buildDetailRow(
+                      _buildDetailRow(
                         LucideIcons.calendar,
                         'Tanggal Kadaluarsa',
                         DateFormat(
@@ -1388,7 +1388,7 @@ class FoodDetailScreen extends ConsumerWidget {
                           'id_ID',
                         ).format(food.expiryDate),
                       ),
-                       _buildDetailRow(
+                      _buildDetailRow(
                         LucideIcons.clock,
                         'Sisa Waktu',
                         '${food.daysLeft} hari lagi',
@@ -1412,7 +1412,7 @@ class FoodDetailScreen extends ConsumerWidget {
                                       AddFoodScreen(foodToEdit: food),
                                 ),
                               ),
-                               icon: const Icon(LucideIcons.edit2, size: 18),
+                              icon: const Icon(LucideIcons.edit2, size: 18),
                               label: const Text('Edit'),
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: Colors.green,
@@ -1476,4 +1476,37 @@ class FoodDetailScreen extends ConsumerWidget {
     );
   }
 
-
+  void _confirmDelete(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Hapus Makanan?'),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus ${food.name} dari daftar?',
+        ), //text
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ), //text button
+          TextButton(
+            onPressed: () {
+              ref.read(foodProvider.notifier).deleteFood(food.id);
+              ref
+                  .read(historyProvider.notifier)
+                  .addEntry(
+                    'Menghapus',
+                    food.name,
+                    LucideIcons.trash2,
+                    Colors.red,
+                  );
+              Navigator.pop(context); // Dialog
+              Navigator.pop(context); // Detail Screen
+            },
+            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+}
