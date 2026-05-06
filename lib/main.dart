@@ -1662,3 +1662,37 @@ class CategoriesScreen extends ConsumerWidget {
     );
   }
 }
+
+// --- NEW SCREENS: NOTIFICATION & FILTERED FOOD ---
+
+class NotificationScreen extends ConsumerWidget {
+  const NotificationScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final foods = ref.watch(foodProvider);
+    final notifications =
+        foods.where((f) => f.status != FoodStatus.aman).toList()
+          ..sort((a, b) => a.expiryDate.compareTo(b.expiryDate));
+
+          return Scaffold(
+      appBar: AppBar(title: const Text('Notifikasi'), centerTitle: true),
+      body: notifications.isEmpty
+          ? const Center(child: Text('Tidak ada notifikasi baru'))
+          : ListView.separated(
+              padding: const EdgeInsets.all(20),
+              itemCount: notifications.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                final food = notifications[index];
+                final isExpired = food.status == FoodStatus.expired;
+                return Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: (isExpired ? Colors.red : Colors.orange)
+                          .withValues(alpha: 0.1),
+                    ), //Border.All
+                  ), //BoxDecoration
