@@ -2396,5 +2396,32 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     ), //Stack
                   ), //Gesture Detector
                 ), //Center
+                const SizedBox(height: 40),
+                _buildLabel('Nama Lengkap'),
+                TextField(
+                  controller: _nameController,
+                  decoration: _buildInputDecoration('Masukkan nama Anda'),
+                ), //TextField
+                const SizedBox(height: 20),
+                _buildLabel('Email'),
+                TextField(
+                  controller: _emailController,
+                  decoration: _buildInputDecoration('Masukkan email Anda'),
+                  keyboardType: TextInputType.emailAddress,
+                ), //TextField
+                const SizedBox(height: 60),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                       if (_nameController.text.isEmpty) return;
+                      ref
+                          .read(userProfileProvider.notifier)
+                          .updateProfile(
+                            name: _nameController.text,
+                            email: _emailController.text,
+                            imagePath: _imagePath,
+                          );
 
 
