@@ -2139,3 +2139,26 @@ class AboutScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
+
+                // Logout Button
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton.icon(
+                    onPressed: () => _showLogoutConfirm(context),
+                    icon: const Icon(LucideIcons.logOut, color: Colors.red),
+                    label: const Text(
+                      'Keluar Sesi',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ), //TextStyle
+                    ), //Text
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: Colors.red.withValues(alpha: 0.05),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ), //RoundedRectangleBorder
+                    ),
+                  ), //TextButtonIcon
+                ), //SizedBox
