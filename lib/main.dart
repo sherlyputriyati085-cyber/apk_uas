@@ -2376,4 +2376,25 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                 ) //Icon
                               : null,
                         ), //CircleAvatar
+                         Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF4CAF50),
+                              shape: BoxShape.circle,
+                            ), //BoxDecoration
+                            child: const Icon(
+                              LucideIcons.camera,
+                              size: 18,
+                              color: Colors.white,
+                            ), //Icon
+                          ), //Container
+                        ), //Positioned
+                      ],
+                    ), //Stack
+                  ), //Gesture Detector
+                ), //Center
+
 
