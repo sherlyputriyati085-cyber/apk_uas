@@ -2353,4 +2353,27 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ), //BoxDecoration
             ), //Container
           ), //Positioned
+          SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(24, 120, 24, 24),
+            child: Column(
+              children: [
+                Center(
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundColor: Colors.white,
+                          backgroundImage: _imagePath != null
+                              ? FileImage(File(_imagePath!))
+                              : null,
+                          child: _imagePath == null
+                              ? const Icon(
+                                  LucideIcons.user,
+                                  size: 60,
+                                  color: Colors.grey,
+                                ) //Icon
+                              : null,
+                        ), //CircleAvatar
 
