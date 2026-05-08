@@ -1885,3 +1885,29 @@ class _FoodItemTile extends StatelessWidget {
     }
   }
 }
+
+// --- HISTORY SCREEN ---
+
+class HistoryScreen extends ConsumerWidget {
+  const HistoryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final history = ref.watch(historyProvider);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Riwayat'), centerTitle: true),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 100,
+            right: -40,
+            child: Container(
+              width: 180,
+              height: 180,
+              decoration: BoxDecoration(
+                color: Colors.orange.withValues(alpha: 0.03),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
