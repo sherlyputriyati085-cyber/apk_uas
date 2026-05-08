@@ -2088,7 +2088,7 @@ class AboutScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 40),
 
-                                // Settings Section
+                 // Settings Section
                 _buildSectionHeader('Akun'),
                 _buildAboutTile(
                   icon: LucideIcons.user,
@@ -2109,12 +2109,14 @@ class AboutScreen extends ConsumerWidget {
                     'Fitur pengaturan notifikasi akan segera hadir untuk membantu Anda memantau makanan kadaluarsa secara otomatis.',
                   ),
                 ),
+                const SizedBox(height: 24),
+                _buildSectionHeader('Informasi'),
                 _buildAboutTile(
-                  icon: LucideIcons.bell,
-                  title: 'Notifikasi',
+                  icon: LucideIcons.leaf,
+                  title: 'Tentang FreshTrack',
                   onTap: () => _showInfoDialog(
                     context,
-                    'Notifikasi',
-                    'Fitur pengaturan notifikasi akan segera hadir untuk membantu Anda memantau makanan kadaluarsa secara otomatis.',
+                    'Tentang FreshTrack',
+                    'FreshTrack adalah asisten pintar untuk melacak masa kadaluarsa makanan Anda. Kami membantu mengurangi pemborosan makanan dengan memberikan pengingat tepat waktu.',
                   ),
                 ),
