@@ -2120,3 +2120,22 @@ class AboutScreen extends ConsumerWidget {
                     'FreshTrack adalah asisten pintar untuk melacak masa kadaluarsa makanan Anda. Kami membantu mengurangi pemborosan makanan dengan memberikan pengingat tepat waktu.',
                   ),
                 ),
+                _buildAboutTile(
+                  icon: LucideIcons.shieldCheck,
+                  title: 'Kebijakan Privasi',
+                  onTap: () => _showInfoDialog(
+                    context,
+                    'Kebijakan Privasi',
+                    'Data Anda disimpan secara lokal di perangkat Anda. Kami tidak mengumpulkan atau membagikan data pribadi Anda ke pihak ketiga.',
+                  ),
+                ),
+                _buildAboutTile(
+                  icon: LucideIcons.mail,
+                  title: 'Hubungi Kami',
+                  onTap: () => _showInfoDialog(
+                    context,
+                    'Hubungi Kami',
+                    'Punya saran atau pertanyaan? Hubungi kami di support@freshtrack.com atau kunjungi website kami.',
+                  ),
+                ),
+                const SizedBox(height: 32),
