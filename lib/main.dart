@@ -2211,3 +2211,23 @@ void _showInfoDialog(BuildContext context, String title, String content) {
       ),
     );
   }
+
+  void _showLogoutConfirm(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Keluar Sesi?'),
+        content: const Text('Apakah Anda yakin ingin keluar dari sesi ini?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
