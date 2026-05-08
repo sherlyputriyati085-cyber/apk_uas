@@ -2027,3 +2027,27 @@ class AboutScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(24, 120, 24, 24),
             child: Column(
               children: [
+                // Profile Header
+                Center(
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundColor: const Color(0xFF4CAF50),
+                        backgroundImage: profile.imagePath != null
+                            ? FileImage(File(profile.imagePath!))
+                            : null,
+                        child: profile.imagePath == null
+                            ? Text(
+                                profile.name.isNotEmpty
+                                    ? profile.name[0].toUpperCase()
+                                    : '?',
+                                style: const TextStyle(
+                                  fontSize: 32,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ), //TextStyle
+                              ) //text
+                            : null,
+                             ), //CircleAvatar
+                             
