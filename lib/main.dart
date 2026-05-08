@@ -2087,3 +2087,34 @@ class AboutScreen extends ConsumerWidget {
                   style: GoogleFonts.plusJakartaSans(color: Colors.grey),
                 ),
                 const SizedBox(height: 40),
+
+                                // Settings Section
+                _buildSectionHeader('Akun'),
+                _buildAboutTile(
+                  icon: LucideIcons.user,
+                  title: 'Edit Profil',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditProfileScreen(),
+                    ), //MaterialPageRoute
+                  ),
+                ),
+                _buildAboutTile(
+                  icon: LucideIcons.bell,
+                  title: 'Notifikasi',
+                  onTap: () => _showInfoDialog(
+                    context,
+                    'Notifikasi',
+                    'Fitur pengaturan notifikasi akan segera hadir untuk membantu Anda memantau makanan kadaluarsa secara otomatis.',
+                  ),
+                ),
+                _buildAboutTile(
+                  icon: LucideIcons.bell,
+                  title: 'Notifikasi',
+                  onTap: () => _showInfoDialog(
+                    context,
+                    'Notifikasi',
+                    'Fitur pengaturan notifikasi akan segera hadir untuk membantu Anda memantau makanan kadaluarsa secara otomatis.',
+                  ),
+                ),
