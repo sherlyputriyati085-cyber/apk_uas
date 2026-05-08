@@ -2011,7 +2011,7 @@ class AboutScreen extends ConsumerWidget {
               ), //BoxDecoration
             ), //Container
           ), //Positioned
-           Positioned(
+          Positioned(
             bottom: 200,
             left: -50,
             child: Container(
@@ -2049,8 +2049,8 @@ class AboutScreen extends ConsumerWidget {
                                 ), //TextStyle
                               ) //text
                             : null,
-                             ), //CircleAvatar
-                             Positioned(
+                      ), //CircleAvatar
+                      Positioned(
                         bottom: 0,
                         right: 0,
                         child: GestureDetector(
@@ -2088,7 +2088,7 @@ class AboutScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 40),
 
-                 // Settings Section
+                // Settings Section
                 _buildSectionHeader('Akun'),
                 _buildAboutTile(
                   icon: LucideIcons.user,
@@ -2196,7 +2196,7 @@ class AboutScreen extends ConsumerWidget {
     );
   }
 
-void _showInfoDialog(BuildContext context, String title, String content) {
+  void _showInfoDialog(BuildContext context, String title, String content) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -2237,7 +2237,7 @@ void _showInfoDialog(BuildContext context, String title, String content) {
     required String title,
     required VoidCallback onTap,
   }) {
-     return InkWell(
+    return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Container(
@@ -2254,3 +2254,29 @@ void _showInfoDialog(BuildContext context, String title, String content) {
             ), //BoxShadow
           ],
         ), //BoxDecoration
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, size: 18, color: Colors.grey[700]),
+            ),
+            const SizedBox(width: 16),
+            Text(
+              title,
+              style: GoogleFonts.plusJakartaSans(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ), //Text
+            const Spacer(),
+            const Icon(LucideIcons.chevronRight, size: 16, color: Colors.grey),
+          ],
+        ),
+      ),
+    );
+  }
+}
