@@ -2280,3 +2280,27 @@ class AboutScreen extends ConsumerWidget {
     );
   }
 }
+
+// --- EDIT PROFILE SCREEN ---
+
+class EditProfileScreen extends ConsumerStatefulWidget {
+  const EditProfileScreen({super.key});
+
+  @override
+  ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  String? _imagePath;
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    final profile = ref.read(userProfileProvider);
+    _nameController = TextEditingController(text: profile.name);
+    _emailController = TextEditingController(text: profile.email);
+    _imagePath = profile.imagePath;
+  }
