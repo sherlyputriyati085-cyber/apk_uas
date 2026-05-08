@@ -2011,3 +2011,19 @@ class AboutScreen extends ConsumerWidget {
               ), //BoxDecoration
             ), //Container
           ), //Positioned
+           Positioned(
+            bottom: 200,
+            left: -50,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                color: const Color(0xFF8BC34A).withValues(alpha: 0.05),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(24, 120, 24, 24),
+            child: Column(
+              children: [
