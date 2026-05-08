@@ -2162,3 +2162,18 @@ class AboutScreen extends ConsumerWidget {
                     ),
                   ), //TextButtonIcon
                 ), //SizedBox
+                const SizedBox(height: 40),
+                Text(
+                  '© 2026 FreshTrack Team • v1.0.0',
+                  style: TextStyle(
+                    color: Colors.grey.withValues(alpha: 0.4),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
