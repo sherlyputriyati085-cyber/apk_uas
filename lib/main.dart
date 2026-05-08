@@ -1979,3 +1979,35 @@ class HistoryScreen extends ConsumerWidget {
     );
   }
 }
+
+// ABOUT SCREEN
+
+class AboutScreen extends ConsumerWidget {
+  const AboutScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(userProfileProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profil'),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ), //App Bar
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          // Background Decorations
+          Positioned(
+            top: -100,
+            right: -100,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                color: const Color(0xFF4CAF50).withValues(alpha: 0.05),
+                shape: BoxShape.circle,
+              ), //BoxDecoration
+            ), //Container
+          ), //Positioned
