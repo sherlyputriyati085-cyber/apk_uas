@@ -2050,4 +2050,40 @@ class AboutScreen extends ConsumerWidget {
                               ) //text
                             : null,
                              ), //CircleAvatar
-                             
+                             Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfileScreen(),
+                            ),
+                          ),
+                          child: const CircleAvatar(
+                            radius: 16,
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              LucideIcons.camera,
+                              size: 14,
+                              color: Color(0xFF4CAF50),
+                            ), //Icon
+                          ), //CircleAvatar
+                        ), //GestureDetector
+                      ), //Positioned
+                    ],
+                  ), //Stack
+                ), //Center
+                const SizedBox(height: 16),
+                Text(
+                  profile.name,
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  profile.email,
+                  style: GoogleFonts.plusJakartaSans(color: Colors.grey),
+                ),
+                const SizedBox(height: 40),
