@@ -2312,7 +2312,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     super.dispose();
   }
 
-   Future<void> _pickImage() async {
+  Future<void> _pickImage() async {
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: ImageSource.gallery,
@@ -2329,7 +2329,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     }
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -2376,7 +2376,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                 ) //Icon
                               : null,
                         ), //CircleAvatar
-                         Positioned(
+                        Positioned(
                           bottom: 0,
                           right: 0,
                           child: Container(
@@ -2415,7 +2415,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () {
-                       if (_nameController.text.isEmpty) return;
+                      if (_nameController.text.isEmpty) return;
                       ref
                           .read(userProfileProvider.notifier)
                           .updateProfile(
@@ -2423,7 +2423,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                             email: _emailController.text,
                             imagePath: _imagePath,
                           );
-                          ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Profil berhasil diperbarui'),
                           backgroundColor: Colors.green,
@@ -2455,4 +2455,33 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     );
   }
 
+  Widget _buildLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          text,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+      ),
+    );
+  }
 
+  InputDecoration _buildInputDecoration(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      filled: true,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey[300]!),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey[300]!),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    );
+  }
+}
