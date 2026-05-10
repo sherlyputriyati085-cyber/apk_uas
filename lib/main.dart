@@ -2009,6 +2009,10 @@ class AboutScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(userProfileProvider);
+    final foods = ref.watch(foodProvider);
+    final notificationCount = foods
+        .where((f) => f.status != FoodStatus.aman)
+        .length;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
@@ -2125,11 +2129,32 @@ class AboutScreen extends ConsumerWidget {
                 _buildAboutTile(
                   icon: LucideIcons.bell,
                   title: 'Notifikasi',
-                  onTap: () => _showInfoDialog(
+                  onTap: () => Navigator.push(
                     context,
-                    'Notifikasi',
-                    'Fitur pengaturan notifikasi akan segera hadir untuk membantu Anda memantau makanan kadaluarsa secara otomatis.',
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationScreen(),
+                    ),
                   ),
+                  trailing: notificationCount > 0
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            notificationCount.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : null,
                 ),
                 const SizedBox(height: 24),
                 _buildSectionHeader('Informasi'),
@@ -2258,6 +2283,7 @@ class AboutScreen extends ConsumerWidget {
     required IconData icon,
     required String title,
     required VoidCallback onTap,
+    Widget? trailing,
   }) {
     return InkWell(
       onTap: onTap,
@@ -2295,6 +2321,7 @@ class AboutScreen extends ConsumerWidget {
               ),
             ), //Text
             const Spacer(),
+            if (trailing != null) ...[trailing, const SizedBox(width: 8)],
             const Icon(LucideIcons.chevronRight, size: 16, color: Colors.grey),
           ],
         ),
