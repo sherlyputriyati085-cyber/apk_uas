@@ -970,10 +970,11 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
       appBar: AppBar(
         title: Text(isEdit ? 'Edit Makanan' : 'Tambah Makanan'),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xFFF8FAF8),
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
       ),
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       body: Stack(
         children: [
           // Background Decorations
@@ -1290,7 +1291,9 @@ class FoodDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Makanan'),
-        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        backgroundColor: const Color(0xFFF8FAF8),
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         actions: [
           IconButton(
@@ -1299,7 +1302,7 @@ class FoodDetailScreen extends ConsumerWidget {
           ),
         ],
       ),
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       body: Stack(
         children: [
           // Background Decorations
@@ -1537,7 +1540,13 @@ class CategoriesScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Kategori'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Kategori'),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFF8FAF8),
+        surfaceTintColor: Colors.transparent,
+      ),
+      extendBodyBehindAppBar: false,
       body: Stack(
         children: [
           Positioned(
@@ -1760,7 +1769,13 @@ class FilteredFoodScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(categoryName), centerTitle: true),
+      appBar: AppBar(
+        title: Text(categoryName),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFF8FAF8),
+        surfaceTintColor: Colors.transparent,
+      ),
+      extendBodyBehindAppBar: false,
       body: foods.isEmpty
           ? const Center(child: Text('Tidak ada makanan di kategori ini'))
           : ListView.separated(
@@ -1896,7 +1911,13 @@ class HistoryScreen extends ConsumerWidget {
     final history = ref.watch(historyProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Riwayat'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Riwayat'),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFF8FAF8),
+        surfaceTintColor: Colors.transparent,
+      ),
+      extendBodyBehindAppBar: false,
       body: Stack(
         children: [
           Positioned(
@@ -1992,10 +2013,11 @@ class AboutScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Profil'),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xFFF8FAF8),
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
       ), //App Bar
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       body: Stack(
         children: [
           // Background Decorations
@@ -2024,7 +2046,7 @@ class AboutScreen extends ConsumerWidget {
             ),
           ),
           SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(24, 120, 24, 24),
+            padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
             child: Column(
               children: [
                 // Profile Header
