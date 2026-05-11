@@ -66,16 +66,6 @@ FreshTrack bekerja dengan alur yang intuitif bagi pengguna:
 - Tampilan UI yang bersih dengan dukungan animasi micro-interactions.
 - Privasi data sepenuhnya tersimpan secara lokal di perangkat.
 
-## 📸 Tampilan Antarmuka (UI)
-
-Berikut adalah representasi visual dari antarmuka pengguna FreshTrack:
-
-|                                                                      Splash Screen                                                                       |                                                                 Dashboard Utama                                                                  |                                                                 Detail & Tambah                                                                 |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: |
-| ![Splash Screen](file:///C:/Users/ASUS/.gemini/antigravity/brain/e500d2da-5493-4fed-bdfd-8b08ae31d738/freshtrack_splash_screen_mockup_1778497405735.png) | ![Dashboard](file:///C:/Users/ASUS/.gemini/antigravity/brain/e500d2da-5493-4fed-bdfd-8b08ae31d738/freshtrack_dashboard_mockup_1778497389560.png) | ![Detail](file:///C:/Users/ASUS/.gemini/antigravity/brain/e500d2da-5493-4fed-bdfd-8b08ae31d738/freshtrack_food_detail_mockup_1778497491990.png) |
-
----
-
 ## 🚀 Instalasi & Pengembangan
 
 Untuk menjalankan proyek ini secara lokal:
