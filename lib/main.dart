@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -775,8 +777,8 @@ class HomeScreen extends ConsumerWidget {
               child: food.imagePath != null && food.imagePath!.isNotEmpty
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.file(
-                        File(food.imagePath!),
+                      child: buildPlatformImage(
+                        food.imagePath!,
                         width: 50,
                         height: 50,
                         fit: BoxFit.cover,
@@ -2558,4 +2560,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     );
   }
+}
+
+Widget buildPlatformImage(
+  String path, {
+  double? width,
+  double? height,
+  BoxFit fit = BoxFit.cover,
+}) {
+  if (kIsWeb) {
+    return Image.network(path, width: width, height: height, fit: fit);
+  }
+  return Image.file(File(path), width: width, height: height, fit: fit);
+}
+
+ImageProvider buildPlatformImageProvider(String path) {
+  if (kIsWeb) {
+    return NetworkImage(path);
+  }
+  return FileImage(File(path));
 }
