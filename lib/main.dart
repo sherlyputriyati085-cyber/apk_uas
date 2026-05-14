@@ -393,6 +393,7 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(index: _selectedIndex, children: _screens),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -771,7 +772,17 @@ class HomeScreen extends ConsumerWidget {
                 color: statusColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(_getCategoryIcon(food.category), color: statusColor),
+              child: food.imagePath != null && food.imagePath!.isNotEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.file(
+                        File(food.imagePath!),
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : Icon(_getCategoryIcon(food.category), color: statusColor),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -1845,7 +1856,17 @@ class _FoodItemTile extends StatelessWidget {
                 color: statusColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(_getCategoryIcon(food.category), color: statusColor),
+              child: food.imagePath != null && food.imagePath!.isNotEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.file(
+                        File(food.imagePath!),
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : Icon(_getCategoryIcon(food.category), color: statusColor),
             ),
             const SizedBox(width: 16),
             Expanded(
