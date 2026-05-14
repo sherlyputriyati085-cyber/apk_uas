@@ -1042,15 +1042,18 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                                 blurRadius: 20,
                               ),
                             ],
-                            image: _imagePath != null
-                                ? DecorationImage(
-                                    image: FileImage(File(_imagePath!)),
-                                    fit: BoxFit.cover,
-                                  )
-                                : null,
                           ),
-                          child: _imagePath == null
-                              ? Column(
+                          child: _imagePath != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(24),
+                                  child: buildPlatformImage(
+                                    _imagePath!,
+                                    width: 140,
+                                    height: 140,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
@@ -1077,8 +1080,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                                       ),
                                     ),
                                   ],
-                                )
-                              : null,
+                                ),
                         ),
                         Positioned(
                           bottom: 0,
