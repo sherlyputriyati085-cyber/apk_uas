@@ -1347,7 +1347,7 @@ class FoodDetailScreen extends ConsumerWidget {
                     color: Colors.grey[100],
                     image: food.imagePath != null
                         ? DecorationImage(
-                            image: FileImage(File(food.imagePath!)),
+                            image: buildPlatformImageProvider(food.imagePath!),
                             fit: BoxFit.cover,
                           )
                         : null,
@@ -1863,8 +1863,8 @@ class _FoodItemTile extends StatelessWidget {
               child: food.imagePath != null && food.imagePath!.isNotEmpty
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.file(
-                        File(food.imagePath!),
+                      child: buildPlatformImage(
+                        food.imagePath!,
                         width: 50,
                         height: 50,
                         fit: BoxFit.cover,
@@ -2090,7 +2090,7 @@ class AboutScreen extends ConsumerWidget {
                         radius: 50,
                         backgroundColor: const Color(0xFF4CAF50),
                         backgroundImage: profile.imagePath != null
-                            ? FileImage(File(profile.imagePath!))
+                            ? buildPlatformImageProvider(profile.imagePath!)
                             : null,
                         child: profile.imagePath == null
                             ? Text(
@@ -2444,7 +2444,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                           radius: 60,
                           backgroundColor: Colors.white,
                           backgroundImage: _imagePath != null
-                              ? FileImage(File(_imagePath!))
+                              ? buildPlatformImageProvider(_imagePath!)
                               : null,
                           child: _imagePath == null
                               ? const Icon(
