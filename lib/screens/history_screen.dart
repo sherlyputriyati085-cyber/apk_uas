@@ -52,3 +52,51 @@ class HistoryScreen extends ConsumerWidget {
                                   color: entry.color.withValues(alpha: 0.1),
                                   shape: BoxShape.circle,
                                 ),
+                                child: Icon(
+                                  entry.icon,
+                                  color: entry.color,
+                                  size: 20,
+                                ),
+                              ),
+                              if (index != history.length - 1)
+                                Container(
+                                  width: 2,
+                                  height: 40,
+                                  color: Colors.grey.withValues(alpha: 0.1),
+                                ),
+                            ],
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${entry.title} ${entry.foodName}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  DateFormat(
+                                    'd MMM yyyy • HH:mm',
+                                    'id_ID',
+                                  ).format(entry.timestamp),
+                                  style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+        ],
+      ),
+    );
+  }
+}
