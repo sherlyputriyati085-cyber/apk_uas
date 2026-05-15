@@ -61,3 +61,101 @@ class CategoriesScreen extends ConsumerWidget {
               ),
             ),
           ),
+          ListView.separated(
+            padding: const EdgeInsets.all(20),
+            itemCount: categories.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 12),
+            itemBuilder: (context, index) {
+              final cat = categories[index];
+              final name = cat['name'] as String;
+              final count = name == 'Semua'
+                  ? foods.length
+                  : foods.where((f) => f.category == name).length;
+
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FilteredFoodScreen(
+                        categoryName: name,
+                        foods: name == 'Semua'
+                            ? foods
+                            : foods.where((f) => f.category == name).toList(),
+                      ),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.02),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: (cat['color'] as Color).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          cat['icon'] as IconData,
+                          color: cat['color'] as Color,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              '$count makanan',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        count.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Icon(
+                        LucideIcons.chevronRight,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
