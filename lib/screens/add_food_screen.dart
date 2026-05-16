@@ -386,6 +386,11 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                           ),
                           backgroundColor: Colors.green,
                           behavior: SnackBarBehavior.floating,
+                          margin: const EdgeInsets.only(
+                            bottom: 100,
+                            left: 16,
+                            right: 16,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

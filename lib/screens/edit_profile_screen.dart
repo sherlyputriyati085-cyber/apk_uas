@@ -150,6 +150,12 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         const SnackBar(
                           content: Text('Profil berhasil diperbarui'),
                           backgroundColor: Colors.green,
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.only(
+                            bottom: 100,
+                            left: 16,
+                            right: 16,
+                          ),
                         ),
                       );
                       Navigator.pop(context);
