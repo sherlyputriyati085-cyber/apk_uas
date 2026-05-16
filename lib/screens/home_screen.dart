@@ -263,3 +263,155 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _buildSummaryCard(
+    String label,
+    int count,
+    Color bgColor,
+    Color textColor,
+  ) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: textColor.withValues(alpha: 0.2)),
+        ),
+        child: Column(
+          children: [
+            Text(
+              count.toString(),
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
+            ),
+            Text(
+              label,
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 12,
+                color: textColor.withValues(alpha: 0.8),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFoodItemTile(BuildContext context, FoodItem food) {
+    Color statusColor;
+    String statusLabel;
+    switch (food.status) {
+      case FoodStatus.aman:
+        statusColor = const Color(0xFF4CAF50);
+        statusLabel = 'Aman';
+        break;
+      case FoodStatus.hampir:
+        statusColor = const Color(0xFFFF9800);
+        statusLabel = 'Hampir';
+        break;
+      case FoodStatus.expired:
+        statusColor = const Color(0xFFF44336);
+        statusLabel = 'Expired';
+        break;
+    }
+
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FoodDetailScreen(food: food)),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: statusColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: food.imagePath != null && food.imagePath!.isNotEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: buildPlatformImage(
+                        food.imagePath!,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : Icon(_getCategoryIcon(food.category), color: statusColor),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    food.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    'Kadaluarsa: ${DateFormat('d MMM yyyy', 'id_ID').format(food.expiryDate)}',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                color: statusColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                statusLabel,
+                style: TextStyle(
+                  color: statusColor,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  IconData _getCategoryIcon(String category) {
+    switch (category) {
+      case 'Minuman':
+        return LucideIcons.cupSoda;
+      case 'Makanan Instan':
+        return LucideIcons.box;
+      case 'Buah':
+        return LucideIcons.apple;
+      case 'Sayuran':
+        return LucideIcons.carrot;
+      case 'Daging':
+        return LucideIcons.drumstick;
+      default:
+        return LucideIcons.utensils;
+    }
+  }
+}
