@@ -110,3 +110,156 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Search Bar
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      onChanged: (val) =>
+                          ref.read(searchQueryProvider.notifier).set(val),
+                      decoration: InputDecoration(
+                        hintText: 'Cari makanan...',
+                        border: InputBorder.none,
+                        icon: const Icon(
+                          LucideIcons.search,
+                          size: 20,
+                          color: Colors.grey,
+                        ),
+                        suffixIcon: ref.watch(searchQueryProvider).isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(LucideIcons.x, size: 16),
+                                onPressed: () {
+                                  ref
+                                      .read(searchQueryProvider.notifier)
+                                      .set('');
+                                },
+                              )
+                            : null,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Ringkasan',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      _buildSummaryCard(
+                        'Aman',
+                        amanCount,
+                        const Color(0xFFE8F5E9),
+                        const Color(0xFF2E7D32),
+                      ),
+                      const SizedBox(width: 12),
+                      _buildSummaryCard(
+                        'Hampir',
+                        hampirCount,
+                        const Color(0xFFFFF3E0),
+                        const Color(0xFFEF6C00),
+                      ),
+                      const SizedBox(width: 12),
+                      _buildSummaryCard(
+                        'Expired',
+                        expiredCount,
+                        const Color(0xFFFFEBEE),
+                        const Color(0xFFC62828),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Daftar Makanan',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text('Lihat Semua'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  if (foods.isEmpty && query.isNotEmpty)
+                    Center(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 40),
+                          Icon(
+                            LucideIcons.searchX,
+                            size: 64,
+                            color: Colors.grey[300],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Makanan tidak tersedia',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 16,
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'Coba cari dengan kata kunci lain',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 14,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  else if (foods.isEmpty)
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: Text(
+                          'Belum ada makanan',
+                          style: TextStyle(color: Colors.grey[400]),
+                        ),
+                      ),
+                    )
+                  else
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: foods.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
+                      itemBuilder: (context, index) {
+                        final food = foods[index];
+                        return _buildFoodItemTile(context, food);
+                      },
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
