@@ -93,3 +93,103 @@ class AboutScreen extends ConsumerWidget {
                               builder: (context) => const EditProfileScreen(),
                             ),
                           ),
+                           child: const CircleAvatar(
+                            radius: 16,
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              LucideIcons.camera,
+                              size: 14,
+                              color: Color(0xFF4CAF50),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  profile.name,
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  profile.email,
+                  style: GoogleFonts.plusJakartaSans(color: Colors.grey),
+                ),
+                const SizedBox(height: 40),
+
+                // Settings Section
+                _buildSectionHeader('Akun'),
+                _buildAboutTile(
+                  icon: LucideIcons.user,
+                  title: 'Edit Profil',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditProfileScreen(),
+                    ),
+                  ),
+                ),
+                _buildAboutTile(
+                  icon: LucideIcons.bell,
+                  title: 'Notifikasi',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationScreen(),
+                    ),
+                  ),
+                  trailing: notificationCount > 0
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            notificationCount.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : null,
+                ),
+                const SizedBox(height: 24),
+                _buildSectionHeader('Informasi'),
+                _buildAboutTile(
+                  icon: LucideIcons.leaf,
+                  title: 'Tentang FreshTrack',
+                  onTap: () => _showInfoDialog(
+                    context,
+                    'Tentang FreshTrack',
+                    'FreshTrack is an intelligent assistant to track the expiry dates of your food. We help reduce food waste by providing timely reminders.',
+                  ),
+                ),
+                _buildAboutTile(
+                  icon: LucideIcons.shieldCheck,
+                  title: 'Kebijakan Privasi',
+                  onTap: () => _showInfoDialog(
+                    context,
+                    'Kebijakan Privasi',
+                    'Your data is stored locally on your device. We do not collect or share your personal data with third parties.',
+                  ),
+                ),
+                _buildAboutTile(
+                  icon: LucideIcons.mail,
+                  title: 'Hubungi Kami',
+                  onTap: () => _showInfoDialog(
+                    context,
+                    'Hubungi Kami',
+                    'Have suggestions or questions? Contact us at support@freshtrack.com or visit our website.',
+                  ),
+                ),
+                const SizedBox(height: 32),
