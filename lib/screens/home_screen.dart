@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../models/food_item.dart';
-import '../providers/food_provider.dart';
+import '../providers/food_providers.dart';
 import '../utils/platform_utils.dart';
 import 'notification_screen.dart';
 import 'food_detail_screen.dart';

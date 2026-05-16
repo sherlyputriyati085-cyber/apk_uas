@@ -3,7 +3,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'home_screen.dart';
 import 'categories_screen.dart';
 import 'history_screen.dart';
-import 'profile_screen.dart';
+import 'profil_screen.dart';
 import 'add_food_screen.dart';
 
 class MainNavigation extends StatefulWidget {

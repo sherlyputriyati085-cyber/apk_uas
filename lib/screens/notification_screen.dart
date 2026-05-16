@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../models/food_item.dart';
-import '../providers/food_provider.dart';
+import '../providers/food_providers.dart';
 
 class NotificationScreen extends ConsumerWidget {
   const NotificationScreen({super.key});

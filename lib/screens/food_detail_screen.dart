@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../models/food_item.dart';
-import '../providers/food_provider.dart';
-import '../providers/history_provider.dart';
+import '../providers/food_providers.dart';
+import '../providers/history_providers.dart';
 import '../utils/platform_utils.dart';
 import 'add_food_screen.dart';
 

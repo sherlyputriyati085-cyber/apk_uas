@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../providers/history_provider.dart';
+import '../providers/history_providers.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../providers/food_provider.dart';
+import '../providers/food_providers.dart';
 import 'filtered_food_screen.dart';
 
 class CategoriesScreen extends ConsumerWidget {

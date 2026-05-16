@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/food_item.dart';
-import '../providers/food_provider.dart';
-import '../providers/history_provider.dart';
+import '../providers/food_providers.dart';
+import '../providers/history_providers.dart';
 import '../utils/platform_utils.dart';
 
 class AddFoodScreen extends ConsumerStatefulWidget {
