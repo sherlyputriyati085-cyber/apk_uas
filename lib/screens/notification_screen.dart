@@ -51,3 +51,44 @@ class NotificationScreen extends ConsumerWidget {
                               .withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
+                        child: Icon(
+                          isExpired
+                              ? LucideIcons.alertTriangle
+                              : LucideIcons.clock,
+                          color: isExpired ? Colors.red : Colors.orange,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              isExpired
+                                  ? 'Awas! ${food.name} sudah kadaluarsa'
+                                  : '${food.name} akan kadaluarsa segera',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              isExpired
+                                  ? 'Sudah lewat ${-food.daysLeft} hari'
+                                  : 'Tersisa ${food.daysLeft} hari lagi',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ).animate().fadeIn().slideX(begin: 0.1, end: 0);
+              },
+            ),
+    );
+  }
+}
