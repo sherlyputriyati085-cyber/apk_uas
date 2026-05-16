@@ -2,6 +2,8 @@
 
 **FreshTrack** adalah aplikasi asisten pintar yang dirancang untuk membantu Anda mengelola stok makanan dan melacak masa kadaluarsa secara efisien. Dengan desain yang modern dan premium, FreshTrack memastikan tidak ada makanan yang terbuang sia-sia di rumah Anda.
 
+aplikasi ini memungkinkan pengguna mencatat makanan, mengelompokkan berdasarkan kategori, serta mendapatkan notifikasi ketika makanan hampir atau sudah kadaluarsa.
+
 ---
 
 ## 🏛️ Blue Print Aplikasi
@@ -52,6 +54,10 @@ FreshTrack bekerja dengan alur yang intuitif bagi pengguna:
 - **Warning (Oranye)**: Makanan akan kadaluarsa dalam ≤ 7 hari.
 - **Expired (Merah)**: Makanan sudah melewati masa kadaluarsa.
 
+### 4. Notifikasi
+
+pengguna akan menerima notifikasi ketika makanan sudah hampir atau sudah kadaluarsa.
+
 ### 4. Pencarian Cepat (Smart Search)
 
 - Temukan makanan dengan cepat melalui kolom pencarian di halaman utama.
@@ -65,6 +71,13 @@ FreshTrack bekerja dengan alur yang intuitif bagi pengguna:
 - Ubah foto profil dan informasi pengguna.
 - Tampilan UI yang bersih dengan dukungan animasi micro-interactions.
 - Privasi data sepenuhnya tersimpan secara lokal di perangkat.
+
+### teknologi yang digunakan
+
+flutter
+dart
+SQLite/ Hive
+Git
 
 ## 🚀 Instalasi & Pengembangan
 
