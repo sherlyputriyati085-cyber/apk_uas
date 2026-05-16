@@ -193,3 +193,75 @@ class AboutScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
+
+                // Logout Button
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton.icon(
+                    onPressed: () => _showLogoutConfirm(context, ref),
+                    icon: const Icon(LucideIcons.logOut, color: Colors.red),
+                    label: const Text(
+                      'Keluar Sesi',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: Colors.red.withValues(alpha: 0.05),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                Text(
+                  '© 2026 FreshTrack Team • v1.0.0',
+                  style: TextStyle(
+                    color: Colors.grey.withValues(alpha: 0.4),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4, bottom: 12),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          title,
+          style: GoogleFonts.plusJakartaSans(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[700],
+            letterSpacing: 0.5,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showInfoDialog(BuildContext context, String title, String content) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Tutup'),
+          ),
+        ],
+      ),
+    );
+  }
