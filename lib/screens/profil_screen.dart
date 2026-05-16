@@ -93,7 +93,7 @@ class AboutScreen extends ConsumerWidget {
                               builder: (context) => const EditProfileScreen(),
                             ),
                           ),
-                           child: const CircleAvatar(
+                          child: const CircleAvatar(
                             radius: 16,
                             backgroundColor: Colors.white,
                             child: Icon(
@@ -265,3 +265,87 @@ class AboutScreen extends ConsumerWidget {
       ),
     );
   }
+
+  void _showLogoutConfirm(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Keluar Sesi?'),
+        content: const Text('Apakah Anda yakin ingin keluar dari sesi ini?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Clear all data
+              ref.read(userProfileProvider.notifier).clearProfile();
+              ref.read(foodProvider.notifier).clearAll();
+              ref.read(historyProvider.notifier).clearHistory();
+
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Sesi berhasil keluar dan data dibersihkan'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            },
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAboutTile({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+    Widget? trailing,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.02),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, size: 18, color: Colors.grey[700]),
+            ),
+            const SizedBox(width: 16),
+            Text(
+              title,
+              style: GoogleFonts.plusJakartaSans(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+            const Spacer(),
+            if (trailing != null) ...[trailing, const SizedBox(width: 8)],
+            const Icon(LucideIcons.chevronRight, size: 16, color: Colors.grey),
+          ],
+        ),
+      ),
+    );
+  }
+}
