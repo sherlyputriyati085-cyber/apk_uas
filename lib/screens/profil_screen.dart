@@ -290,7 +290,7 @@ class AboutScreen extends ConsumerWidget {
                   content: Text('Sesi berhasil keluar dan data dibersihkan'),
                   backgroundColor: Colors.green,
                   behavior: SnackBarBehavior.floating,
-                  margin: EdgeInsets.only(bottom: 100, left: 16, right: 16),
+                  margin: EdgeInsets.only(bottom: 16, left: 16, right: 16),
                 ),
               );
             },

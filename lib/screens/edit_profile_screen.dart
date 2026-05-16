@@ -152,7 +152,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                           backgroundColor: Colors.green,
                           behavior: SnackBarBehavior.floating,
                           margin: EdgeInsets.only(
-                            bottom: 100,
+                            bottom: 16,
                             left: 16,
                             right: 16,
                           ),

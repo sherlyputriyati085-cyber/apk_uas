@@ -387,7 +387,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                           backgroundColor: Colors.green,
                           behavior: SnackBarBehavior.floating,
                           margin: const EdgeInsets.only(
-                            bottom: 100,
+                            bottom: 16,
                             left: 16,
                             right: 16,
                           ),
