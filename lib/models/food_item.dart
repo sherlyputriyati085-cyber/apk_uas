@@ -1,7 +1,7 @@
 enum FoodStatus { aman, hampir, expired }
 
 class FoodItem {
-  final String id;
+  final int id;
   final String name;
   final String category;
   final DateTime expiryDate;

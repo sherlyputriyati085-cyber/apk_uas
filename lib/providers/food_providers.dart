@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/food_item.dart';
+import '../service/notification_service.dart';
 
 class FoodNotifier extends Notifier<List<FoodItem>> {
   @override
@@ -9,6 +10,11 @@ class FoodNotifier extends Notifier<List<FoodItem>> {
 
   void addFood(FoodItem food) {
     state = [...state, food];
+    NotificationService().scheduleFoodExpiryNotification(
+      id: food.id.toString(),
+      name: food.name,
+      expiryDate: food.expiryDate,
+    );
   }
 
   void updateFood(FoodItem updatedFood) {
@@ -16,13 +22,23 @@ class FoodNotifier extends Notifier<List<FoodItem>> {
       for (final food in state)
         if (food.id == updatedFood.id) updatedFood else food,
     ];
+    NotificationService().cancelNotifications(updatedFood.id.toString());
+    NotificationService().scheduleFoodExpiryNotification(
+      id: updatedFood.id.toString(),
+      name: updatedFood.name,
+      expiryDate: updatedFood.expiryDate,
+    );
   }
 
-  void deleteFood(String id) {
+  void deleteFood(int id) {
     state = state.where((f) => f.id != id).toList();
+    NotificationService().cancelNotifications(id.toString());
   }
 
   void clearAll() {
+    for (final food in state) {
+      NotificationService().cancelNotifications(food.id.toString());
+    }
     state = [];
   }
 }

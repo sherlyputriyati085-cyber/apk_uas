@@ -360,7 +360,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                             );
                       } else {
                         final newItem = FoodItem(
-                          id: DateTime.now().toString(),
+                          id: DateTime.now().millisecondsSinceEpoch,
                           name: _nameController.text,
                           category: _selectedCategory,
                           expiryDate: _selectedDate,
