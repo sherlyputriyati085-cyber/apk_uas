@@ -14,9 +14,12 @@ class FoodDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final foods = ref.watch(foodProvider);
+    final foodItem = foods.firstWhere((f) => f.id == food.id, orElse: () => food);
+
     Color statusColor;
     String statusLabel;
-    switch (food.status) {
+    switch (foodItem.status) {
       case FoodStatus.aman:
         statusColor = const Color(0xFF4CAF50);
         statusLabel = 'Aman';
@@ -41,7 +44,7 @@ class FoodDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(LucideIcons.trash2, color: Colors.red),
-            onPressed: () => _confirmDelete(context, ref),
+            onPressed: () => _confirmDelete(context, ref, foodItem),
           ),
         ],
       ),
@@ -68,9 +71,9 @@ class FoodDetailScreen extends ConsumerWidget {
                   height: 300,
                   width: double.infinity,
                   decoration: BoxDecoration(color: Colors.grey[100]),
-                  child: food.imagePath != null
+                  child: foodItem.imagePath != null
                       ? buildPlatformImage(
-                          food.imagePath!,
+                          foodItem.imagePath!,
                           width: double.infinity,
                           height: 300,
                           fit: BoxFit.cover,
@@ -92,7 +95,7 @@ class FoodDetailScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            food.name,
+                            foodItem.name,
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -121,7 +124,7 @@ class FoodDetailScreen extends ConsumerWidget {
                       _buildDetailRow(
                         LucideIcons.tag,
                         'Kategori',
-                        food.category,
+                        foodItem.category,
                       ),
                       _buildDetailRow(
                         LucideIcons.calendar,
@@ -129,18 +132,18 @@ class FoodDetailScreen extends ConsumerWidget {
                         DateFormat(
                           'd MMMM yyyy',
                           'id_ID',
-                        ).format(food.expiryDate),
+                        ).format(foodItem.expiryDate),
                       ),
                       _buildDetailRow(
                         LucideIcons.clock,
                         'Sisa Waktu',
-                        '${food.daysLeft} hari lagi',
+                        '${foodItem.daysLeft} hari lagi',
                       ),
                       _buildDetailRow(
                         LucideIcons.fileText,
                         'Catatan',
-                        food.notes != null && food.notes!.isNotEmpty
-                            ? food.notes!
+                        foodItem.notes != null && foodItem.notes!.isNotEmpty
+                            ? foodItem.notes!
                             : '-',
                       ),
                       const SizedBox(height: 48),
@@ -152,7 +155,7 @@ class FoodDetailScreen extends ConsumerWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      AddFoodScreen(foodToEdit: food),
+                                      AddFoodScreen(foodToEdit: foodItem),
                                 ),
                               ),
                               icon: const Icon(LucideIcons.edit2, size: 18),
@@ -172,7 +175,7 @@ class FoodDetailScreen extends ConsumerWidget {
                           const SizedBox(width: 16),
                           Expanded(
                             child: ElevatedButton.icon(
-                              onPressed: () => _confirmDelete(context, ref),
+                              onPressed: () => _confirmDelete(context, ref, foodItem),
                               icon: const Icon(LucideIcons.trash2, size: 18),
                               label: const Text('Hapus'),
                               style: ElevatedButton.styleFrom(
@@ -219,13 +222,13 @@ class FoodDetailScreen extends ConsumerWidget {
     );
   }
 
-  void _confirmDelete(BuildContext context, WidgetRef ref) {
+  void _confirmDelete(BuildContext context, WidgetRef ref, FoodItem foodItem) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Hapus Makanan?'),
         content: Text(
-          'Apakah Anda yakin ingin menghapus ${food.name} dari daftar?',
+          'Apakah Anda yakin ingin menghapus ${foodItem.name} dari daftar?',
         ),
         actions: [
           TextButton(
@@ -234,12 +237,12 @@ class FoodDetailScreen extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () {
-              ref.read(foodProvider.notifier).deleteFood(food.id);
+              ref.read(foodProvider.notifier).deleteFood(foodItem.id);
               ref
                   .read(historyProvider.notifier)
                   .addEntry(
                     'Menghapus',
-                    food.name,
+                    foodItem.name,
                     LucideIcons.trash2,
                     Colors.red,
                   );
