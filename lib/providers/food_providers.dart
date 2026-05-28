@@ -1,11 +1,23 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/food_item.dart';
 import '../service/notification_service.dart';
+import '../database/database_helper.dart';
 
 class FoodNotifier extends Notifier<List<FoodItem>> {
   @override
   List<FoodItem> build() {
+    _loadFoods();
     return [];
+  }
+
+  Future<void> _loadFoods() async {
+    try {
+      final dbFoods = await DatabaseHelper.instance.getFoods();
+      state = dbFoods.map((e) => FoodItem.fromMap(e)).toList();
+    } catch (e) {
+      debugPrint('Error loading foods from DB: $e');
+    }
   }
 
   void addFood(FoodItem food) {
@@ -28,16 +40,30 @@ class FoodNotifier extends Notifier<List<FoodItem>> {
       name: updatedFood.name,
       expiryDate: updatedFood.expiryDate,
     );
+    // Persist edit to DB
+    DatabaseHelper.instance.updateFood(updatedFood.toMap()).catchError((e) {
+      debugPrint('Error updating food in DB: $e');
+      return 0;
+    });
   }
 
   void deleteFood(int id) {
     state = state.where((f) => f.id != id).toList();
     NotificationService().cancelNotifications(id.toString());
+    // Persist delete to DB
+    DatabaseHelper.instance.deleteFood(id).catchError((e) {
+      debugPrint('Error deleting food from DB: $e');
+      return 0;
+    });
   }
 
   void clearAll() {
     for (final food in state) {
       NotificationService().cancelNotifications(food.id.toString());
+      DatabaseHelper.instance.deleteFood(food.id).catchError((e) {
+        debugPrint('Error clearing food from DB: $e');
+        return 0;
+      });
     }
     state = [];
   }

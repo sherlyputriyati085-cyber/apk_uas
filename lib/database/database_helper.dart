@@ -19,17 +19,28 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: 2,
+      onCreate: _createDB,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute('DROP TABLE IF EXISTS foods');
+          await _createDB(db, newVersion);
+        }
+      },
+    );
   }
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
     CREATE TABLE foods (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id INTEGER PRIMARY KEY,
       name TEXT,
       category TEXT,
       expiryDate TEXT,
-      image TEXT
+      notes TEXT,
+      imagePath TEXT
     )
     ''');
   }
@@ -47,5 +58,15 @@ class DatabaseHelper {
   Future<int> deleteFood(int id) async {
     final db = await instance.database;
     return await db.delete('foods', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> updateFood(Map<String, dynamic> row) async {
+    final db = await instance.database;
+    return await db.update(
+      'foods',
+      row,
+      where: 'id = ?',
+      whereArgs: [row['id']],
+    );
   }
 }

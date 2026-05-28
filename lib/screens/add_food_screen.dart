@@ -8,6 +8,8 @@ import '../models/food_item.dart';
 import '../providers/food_providers.dart';
 import '../providers/history_providers.dart';
 import '../utils/platform_utils.dart';
+import '../database/database_helper.dart';
+import '../service/notification_service.dart';
 
 class AddFoodScreen extends ConsumerStatefulWidget {
   final FoodItem? foodToEdit;
@@ -338,7 +340,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                   width: double.infinity,
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_nameController.text.isEmpty) return;
 
                       if (isEdit) {
@@ -368,6 +370,14 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                           imagePath: _imagePath,
                         );
                         ref.read(foodProvider.notifier).addFood(newItem);
+                        await DatabaseHelper.instance.insertFood({
+                          'id': newItem.id,
+                          'name': newItem.name,
+                          'category': newItem.category,
+                          'expiryDate': newItem.expiryDate.toIso8601String(),
+                          'notes': newItem.notes,
+                          'imagePath': newItem.imagePath,
+                        });
                         ref
                             .read(historyProvider.notifier)
                             .addEntry(
