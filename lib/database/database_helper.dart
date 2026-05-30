@@ -21,12 +21,23 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _createDB,
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
           await db.execute('DROP TABLE IF EXISTS foods');
           await _createDB(db, newVersion);
+        } else if (oldVersion < 3) {
+          await db.execute('''
+          CREATE TABLE history (
+            id TEXT PRIMARY KEY,
+            title TEXT,
+            foodName TEXT,
+            timestamp TEXT,
+            icon INTEGER,
+            color INTEGER
+          )
+          ''');
         }
       },
     );
@@ -41,6 +52,17 @@ class DatabaseHelper {
       expiryDate TEXT,
       notes TEXT,
       imagePath TEXT
+    )
+    ''');
+
+    await db.execute('''
+    CREATE TABLE history (
+      id TEXT PRIMARY KEY,
+      title TEXT,
+      foodName TEXT,
+      timestamp TEXT,
+      icon INTEGER,
+      color INTEGER
     )
     ''');
   }
@@ -68,5 +90,21 @@ class DatabaseHelper {
       where: 'id = ?',
       whereArgs: [row['id']],
     );
+  }
+
+  // Helper methods for history
+  Future<int> insertHistory(Map<String, dynamic> row) async {
+    final db = await instance.database;
+    return await db.insert('history', row, conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<Map<String, dynamic>>> getHistory() async {
+    final db = await instance.database;
+    return await db.query('history', orderBy: 'timestamp DESC');
+  }
+
+  Future<int> clearHistory() async {
+    final db = await instance.database;
+    return await db.delete('history');
   }
 }

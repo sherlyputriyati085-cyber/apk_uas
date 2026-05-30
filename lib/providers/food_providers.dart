@@ -14,7 +14,16 @@ class FoodNotifier extends Notifier<List<FoodItem>> {
   Future<void> _loadFoods() async {
     try {
       final dbFoods = await DatabaseHelper.instance.getFoods();
-      state = dbFoods.map((e) => FoodItem.fromMap(e)).toList();
+      final foods = dbFoods.map((e) => FoodItem.fromMap(e)).toList();
+      state = foods;
+      // Schedule notifications for all loaded foods
+      for (final food in foods) {
+        NotificationService().scheduleFoodExpiryNotification(
+          id: food.id.toString(),
+          name: food.name,
+          expiryDate: food.expiryDate,
+        );
+      }
     } catch (e) {
       debugPrint('Error loading foods from DB: $e');
     }
@@ -22,6 +31,7 @@ class FoodNotifier extends Notifier<List<FoodItem>> {
 
   void addFood(FoodItem food) {
     state = [...state, food];
+    // Schedule notification for the newly added food
     NotificationService().scheduleFoodExpiryNotification(
       id: food.id.toString(),
       name: food.name,
@@ -34,6 +44,7 @@ class FoodNotifier extends Notifier<List<FoodItem>> {
       for (final food in state)
         if (food.id == updatedFood.id) updatedFood else food,
     ];
+    // Cancel previous notifications and schedule new ones for the updated food
     NotificationService().cancelNotifications(updatedFood.id.toString());
     NotificationService().scheduleFoodExpiryNotification(
       id: updatedFood.id.toString(),

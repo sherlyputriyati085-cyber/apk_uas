@@ -13,6 +13,22 @@ class NotificationService {
 
   Future<void> init() async {
     tz.initializeTimeZones();
+    // Set the local timezone to the device's default
+    // Request exact alarm permission on Android 12+ if not already granted
+    try {
+      final String localName = tz.local.name;
+      tz.setLocalLocation(tz.getLocation(localName));
+    } catch (e) {
+      tz.setLocalLocation(tz.getLocation('Asia/Jakarta'));
+    }
+    final androidPlugin = flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+
+    if (androidPlugin != null) {
+      await androidPlugin.requestExactAlarmsPermission();
+    }
 
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -85,7 +101,8 @@ class NotificationService {
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 
