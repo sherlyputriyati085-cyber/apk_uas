@@ -95,7 +95,11 @@ class DatabaseHelper {
   // Helper methods for history
   Future<int> insertHistory(Map<String, dynamic> row) async {
     final db = await instance.database;
-    return await db.insert('history', row, conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.insert(
+      'history',
+      row,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   Future<List<Map<String, dynamic>>> getHistory() async {
