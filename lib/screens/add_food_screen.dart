@@ -9,7 +9,6 @@ import '../providers/food_providers.dart';
 import '../providers/history_providers.dart';
 import '../utils/platform_utils.dart';
 import '../database/database_helper.dart';
-import '../service/notification_service.dart';
 
 class AddFoodScreen extends ConsumerStatefulWidget {
   final FoodItem? foodToEdit;
@@ -378,6 +377,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                           'notes': newItem.notes,
                           'imagePath': newItem.imagePath,
                         });
+                        if (!mounted) return;
                         ref
                             .read(historyProvider.notifier)
                             .addEntry(
