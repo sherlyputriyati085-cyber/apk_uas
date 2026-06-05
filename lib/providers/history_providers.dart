@@ -30,11 +30,12 @@ class HistoryNotifier extends Notifier<List<HistoryEntry>> {
       color: color,
     );
 
+    // Update local state immediately so UI shows it, and write to DB in background
+    state = [entry, ...state];
     try {
       await DatabaseHelper.instance.insertHistory(entry.toMap());
-      state = [entry, ...state];
     } catch (e) {
-      debugPrint('Error adding history entry: $e');
+      debugPrint('Error adding history entry to DB: $e');
     }
   }
 

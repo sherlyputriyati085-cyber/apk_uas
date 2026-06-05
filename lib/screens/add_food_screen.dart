@@ -158,29 +158,39 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
       extendBodyBehindAppBar: false,
       body: Stack(
         children: [
-          // Background Decorations
-          Positioned(
-            top: -100,
-            left: -100,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                color: const Color(0xFF4CAF50).withValues(alpha: 0.03),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -50,
-            right: -50,
-            child: Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                color: const Color(0xFF8BC34A).withValues(alpha: 0.03),
-                shape: BoxShape.circle,
-              ),
+          // Background Decorations wrapped in RepaintBoundary for performance
+          RepaintBoundary(
+            child: Stack(
+              children: [
+                Positioned(
+                  top: -100,
+                  left: -100,
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    decoration: const BoxDecoration(
+                      color: Color(
+                        0x084CAF50,
+                      ), // Color(0xFF4CAF50).withAlpha(8) equivalent
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: -50,
+                  right: -50,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      color: Color(
+                        0x088BC34A,
+                      ), // Color(0xFF8BC34A).withAlpha(8) equivalent
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           SingleChildScrollView(
@@ -200,9 +210,11 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.05),
+                                color: Color(
+                                  0x0D000000,
+                                ), // Colors.black.withAlpha(13) (approx 0.05 opacity)
                                 blurRadius: 20,
                               ),
                             ],
@@ -369,15 +381,19 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                           imagePath: _imagePath,
                         );
                         ref.read(foodProvider.notifier).addFood(newItem);
-                        await DatabaseHelper.instance.insertFood({
-                          'id': newItem.id,
-                          'name': newItem.name,
-                          'category': newItem.category,
-                          'expiryDate': newItem.expiryDate.toIso8601String(),
-                          'notes': newItem.notes,
-                          'imagePath': newItem.imagePath,
-                        });
-                        if (!mounted) return;
+                        try {
+                          await DatabaseHelper.instance.insertFood({
+                            'id': newItem.id,
+                            'name': newItem.name,
+                            'category': newItem.category,
+                            'expiryDate': newItem.expiryDate.toIso8601String(),
+                            'notes': newItem.notes,
+                            'imagePath': newItem.imagePath,
+                          });
+                        } catch (e) {
+                          debugPrint('Database insert bypassed or failed: $e');
+                        }
+                        if (!context.mounted) return;
                         ref
                             .read(historyProvider.notifier)
                             .addEntry(
@@ -406,7 +422,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
                           ),
                         ),
                       );
-                      Navigator.pop(context);
+                      Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4CAF50),

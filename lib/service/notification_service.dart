@@ -2,6 +2,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:io' show Platform;
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
@@ -16,7 +18,10 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
+  bool get _isSupported => !kIsWeb && (Platform.isAndroid || Platform.isIOS || Platform.isMacOS);
+
   Future<void> init() async {
+    if (!_isSupported) return;
     // Inisialisasi zona waktu
     tzdata.initializeTimeZones();
     try {
@@ -26,30 +31,32 @@ class NotificationService {
       tz.setLocalLocation(tz.getLocation('Asia/Jakarta'));
     }
 
-    // Android specific: request exact alarm permission (Android 12+)
-    final androidPlugin = _plugin
-        .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin
-        >();
-    if (androidPlugin != null) {
-      await androidPlugin.requestExactAlarmsPermission();
-      // Runtime notification permission (Android 13+)
-      await androidPlugin.requestNotificationsPermission();
-    }
+    if (Platform.isAndroid) {
+      // Android specific: request exact alarm permission (Android 12+)
+      final androidPlugin = _plugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+      if (androidPlugin != null) {
+        await androidPlugin.requestExactAlarmsPermission();
+        // Runtime notification permission (Android 13+)
+        await androidPlugin.requestNotificationsPermission();
+      }
 
-    // Buat channel notifikasi (Android 8.0+)
-    const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'food_expiry_channel',
-      'Peringatan Kadaluarsa',
-      description:
-          'Notifikasi untuk makanan yang hampir basi atau sudah kadaluarsa',
-      importance: Importance.max,
-    );
-    await _plugin
-        .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin
-        >()
-        ?.createNotificationChannel(channel);
+      // Buat channel notifikasi (Android 8.0+)
+      const AndroidNotificationChannel channel = AndroidNotificationChannel(
+        'food_expiry_channel',
+        'Peringatan Kadaluarsa',
+        description:
+            'Notifikasi untuk makanan yang hampir basi atau sudah kadaluarsa',
+        importance: Importance.max,
+      );
+      await _plugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >()
+          ?.createNotificationChannel(channel);
+    }
 
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -72,6 +79,7 @@ class NotificationService {
     required String name,
     required DateTime expiryDate,
   }) async {
+    if (!_isSupported) return;
     // Hapus notifikasi yang mungkin masih ada
     await cancelNotifications(id);
 
@@ -107,6 +115,7 @@ class NotificationService {
     required String body,
     required DateTime scheduledDate,
   }) async {
+    if (!_isSupported) return;
     final tz.TZDateTime tzDate = tz.TZDateTime.from(scheduledDate, tz.local);
     await _plugin.zonedSchedule(
       id,
@@ -134,6 +143,7 @@ class NotificationService {
   // Batalkan semua notifikasi terkait satu ID makanan
   // -----------------------------------------------------------------
   Future<void> cancelNotifications(String id) async {
+    if (!_isSupported) return;
     final int base = _positiveHash(id);
     await _plugin.cancel(base);
     await _plugin.cancel(base + 1);
